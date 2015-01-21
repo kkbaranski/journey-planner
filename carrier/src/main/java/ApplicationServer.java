@@ -1,11 +1,13 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.SocketException;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author krzysztof
@@ -18,9 +20,9 @@ public class ApplicationServer implements Runnable
 
 		openServerSocket();
 		while( !isStopped() ) {
-			Socket clientSocket;
+			SSLSocket clientSocket;
 			try {
-				clientSocket = this.serverSocket.accept();
+				clientSocket = ( SSLSocket ) this.serverSocket.accept();
 			} catch( IOException e ) {
 				if( isStopped() ) {
 					logger.info( "Server stopped" );
@@ -56,9 +58,11 @@ public class ApplicationServer implements Runnable
 	private void openServerSocket() {
 		logger.info( "Opening server socked..." );
 		try {
-			this.serverSocket = new ServerSocket( this.serverPort );
+			SSLServerSocketFactory sslserversocketfactory = ( SSLServerSocketFactory ) SSLServerSocketFactory.getDefault();
+			this.serverSocket = ( SSLServerSocket ) sslserversocketfactory.createServerSocket( this.serverPort );
 		} catch( IOException e ) {
-			throw new RuntimeException( "Cannot open port " + this.serverPort, e );
+			logger.error( "Cannot open port " + this.serverPort );
+			return;
 		}
 		logger.info( "Socked opened." );
 	}
@@ -70,7 +74,7 @@ public class ApplicationServer implements Runnable
 
 	private final int serverPort = Config.port();
 	private boolean isStopped = false;
-	private ServerSocket serverSocket = null;
+	private SSLServerSocket serverSocket = null;
 	private final ExecutorService service = Executors.newFixedThreadPool( Config.maxNumberOfExecutors() );
 	private static final Logger logger = LogManager.getLogger( ApplicationServer.class );
 }

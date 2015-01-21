@@ -83,7 +83,7 @@ public class QueryHandler implements Runnable
 	private boolean getFrom( Query.Builder queryBuilder, PrintWriter printWriter, BufferedReader bufferedReader ) throws IOException {
 		String line = bufferedReader.readLine();
 		if( !Validator.checkFrom( line ) ) {
-			logger.error( "Validation error for '" + line + "'" );
+			logger.info( "Validation error for '" + line + "'" );
 			print( printWriter, ResponseCodes.BADFORMAT.toString() );
 			return true;
 		}
@@ -96,7 +96,7 @@ public class QueryHandler implements Runnable
 	private boolean getTo( Query.Builder queryBuilder, PrintWriter printWriter, BufferedReader bufferedReader ) throws IOException {
 		String line = bufferedReader.readLine();
 		if( !Validator.checkTo( line ) ) {
-			logger.error( "Validation error for '" + line + "'" );
+			logger.info( "Validation error for '" + line + "'" );
 			print( printWriter, ResponseCodes.BADFORMAT.toString() );
 			return true;
 		}
@@ -109,7 +109,7 @@ public class QueryHandler implements Runnable
 	private boolean getDate( Query.Builder queryBuilder, PrintWriter printWriter, BufferedReader bufferedReader ) throws IOException {
 		String line = bufferedReader.readLine();
 		if( !Validator.checkDate( line ) ) {
-			logger.error( "Validation error for '" + line + "'" );
+			logger.info( "Validation error for '" + line + "'" );
 			print( printWriter, ResponseCodes.BADFORMAT.toString() );
 			return true;
 		}
@@ -117,7 +117,7 @@ public class QueryHandler implements Runnable
 		try {
 			date = LocalDate.parse( line, dateFormatter );
 		} catch( DateTimeParseException e ) {
-			logger.error( "Date cannot be parsed [" + line + "]" );
+			logger.info( "Date cannot be parsed [" + line + "]" );
 			print( printWriter, ResponseCodes.BADFORMAT.toString() );
 			return true;
 		}

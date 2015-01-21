@@ -3,13 +3,12 @@
 #
 # [ author: Krzysztof Baranski ]
 #
-#       CARRIER ( run )
+#       CLIENT ( run )
 #
 #===============================================================
 
-db='.db'
 setuplock='.setuplock'
-project_name='carrier'
+project_name='client'
 build='.build'
 source='source'
 main_class='Application'
@@ -19,7 +18,7 @@ project_jar=$project_name.jar
 
 echo "
 ---------------------------------------------------
--                   RUN CARRIER                   -
+-                   RUN CLIENT                    -
 ---------------------------------------------------"
 #--------------------------------------------------------------| check if configured
 if [ ! -f $setuplock ]
@@ -58,20 +57,5 @@ then
     fi
 fi
 
-#--------------------------------------------------------------| get credentials
-echo
-if [ ! -f $db ]
-then
-	echo -n "Database name: "
-	read dbname
-	echo "$dbname" > $db
-	chmod -w $db
-fi
-echo -n "Database username: "
-read username
-echo -n "Password for username $username: "
-read -s password
-echo
-
 #--------------------------------------------------------------| run application
-$_java -cp "$project_jar:libs/*" -Djavax.net.ssl.keyStore=client_server_key -Djavax.net.ssl.keyStorePassword=123456 $main_class $dbname $username $password
+$_java -cp "$project_jar:libs/*" -Djavax.net.ssl.trustStore=client_server_key -Djavax.net.ssl.trustStorePassword=123456 $main_class

@@ -3,13 +3,13 @@
 #
 # [ author: Krzysztof Baranski ]
 #
-#       CARRIER ( compile and create jar )
+#       CLIENT ( compile and create jar )
 #
 #===============================================================
 
 BUILD_COMMONS=true
 
-project_name='carrier'
+project_name='client'
 build='.build'
 source='source'
 main_class='Application'
@@ -18,7 +18,7 @@ commons_jar='commons.jar'
 
 echo "
 ---------------------------------------------------
--                 COMPILE CARRIER                 -
+-                 COMPILE CLIENT                  -
 ---------------------------------------------------"
 
 #--------------------------------------------------------------| check java
