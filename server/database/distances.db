@@ -1,0 +1,479 @@
+#
+# PATTERN:
+#
+# start-city:stop-city:distance-in-km
+#
+Bialystok:Chelm:242
+Bialystok:Elblag:297
+Bialystok:Lublin:232
+Bialystok:Olsztyn:209
+Bialystok:Suwalki:119
+Bialystok:Warszawa:192
+Bialystok:Zamosć:291
+
+Bielsko-Biala:Bytom:64
+Bielsko-Biala:Gliwice:64
+Bielsko-Biala:Kalisz:247
+Bielsko-Biala:Katowice:53
+Bielsko-Biala:Kielce:175
+Bielsko-Biala:Krakow:75
+Bielsko-Biala:Legnica:279
+Bielsko-Biala:Lodz:236
+Bielsko-Biala:Nowy Sacz:132
+Bielsko-Biala:Opole:135
+Bielsko-Biala:Rzeszow:230
+Bielsko-Biala:Tarnow:152
+Bielsko-Biala:Walbrzych:244
+Bielsko-Biala:Wroclaw:220
+Bielsko-Biala:Zakopane:94
+
+Bydgoszcz:Elblag:160
+Bydgoszcz:Gdansk:155
+Bydgoszcz:Gorzow Wielkopolski:207
+Bydgoszcz:Kalisz:164
+Bydgoszcz:Koszalin:184
+Bydgoszcz:Legnica:269
+Bydgoszcz:Lodz:196
+Bydgoszcz:Olsztyn:195
+Bydgoszcz:Opole:297
+Bydgoszcz:Pila:92
+Bydgoszcz:Poznan:117
+Bydgoszcz:Slupsk:176
+Bydgoszcz:Szczecin:252
+Bydgoszcz:Świnoujscie:287
+Bydgoszcz:Torun:44
+Bydgoszcz:Warszawa:245
+Bydgoszcz:Wloclawek:96
+Bydgoszcz:Wroclaw:254
+Bydgoszcz:Zielona Gora:233
+
+Bytom:Bielsko-Biala:64
+Bytom:Gliwice:20
+Bytom:Kalisz:183
+Bytom:Katowice:13
+Bytom:Kielce:145
+Bytom:Krakow:86
+Bytom:Legnica:235
+Bytom:Lodz:175
+Bytom:Nowy Sacz:165
+Bytom:Opole:85
+Bytom:Poznan:291
+Bytom:Rzeszow:241
+Bytom:Tarnow:165
+Bytom:Walbrzych:209
+Bytom:Warszawa:277
+Bytom:Wloclawek:278
+Bytom:Wroclaw:170
+Bytom:Zakopane:150
+
+Chelm:Bialystok:242
+Chelm:Kielce:219
+Chelm:Lublin:69
+Chelm:Nowy Sacz:281
+Chelm:Rzeszow:175
+Chelm:Tarnow:235
+Chelm:Warszawa:226
+Chelm:Zamosć:53
+
+Elblag:Bialystok:297
+Elblag:Bydgoszcz:160
+Elblag:Gdansk:58
+Elblag:Koszalin:229
+Elblag:Lodz:290
+Elblag:Olsztyn:89
+Elblag:Pila:226
+Elblag:Poznan:277
+Elblag:Slupsk:171
+Elblag:Suwalki:250
+Elblag:Torun:150
+Elblag:Warszawa:260
+Elblag:Wloclawek:184
+
+Gdansk:Bydgoszcz:155
+Gdansk:Elblag:58
+Gdansk:Koszalin:176
+Gdansk:Olsztyn:147
+Gdansk:Pila:199
+Gdansk:Poznan:266
+Gdansk:Slupsk:114
+Gdansk:Torun:162
+Gdansk:Wloclawek:208
+
+Gliwice:Bielsko-Biala:64
+Gliwice:Bytom:19
+Gliwice:Kalisz:183
+Gliwice:Katowice:27
+Gliwice:Kielce:165
+Gliwice:Krakow:102
+Gliwice:Legnica:222
+Gliwice:Lodz:187
+Gliwice:Nowy Sacz:179
+Gliwice:Opole:73
+Gliwice:Poznan:287
+Gliwice:Rzeszow:259
+Gliwice:Tarnow:182
+Gliwice:Walbrzych:193
+Gliwice:Warszawa:293
+Gliwice:Wloclawek:286
+Gliwice:Wroclaw:159
+Gliwice:Zakopane:156
+
+Gorzow Wielkopolski:Bydgoszcz:207
+Gorzow Wielkopolski:Kalisz:241
+Gorzow Wielkopolski:Koszalin:189
+Gorzow Wielkopolski:Legnica:197
+Gorzow Wielkopolski:Pila:120
+Gorzow Wielkopolski:Poznan:130
+Gorzow Wielkopolski:Slupsk:246
+Gorzow Wielkopolski:Szczecin:97
+Gorzow Wielkopolski:Świnoujscie:159
+Gorzow Wielkopolski:Torun:248
+Gorzow Wielkopolski:Walbrzych:248
+Gorzow Wielkopolski:Wloclawek:281
+Gorzow Wielkopolski:Wroclaw:238
+Gorzow Wielkopolski:Zielona Gora:98
+
+Kalisz:Bielsko-Biala:247
+Kalisz:Bydgoszcz:164
+Kalisz:Bytom:183
+Kalisz:Gliwice:183
+Kalisz:Gorzow Wielkopolski:241
+Kalisz:Katowice:195
+Kalisz:Kielce:221
+Kalisz:Krakow:250
+Kalisz:Legnica:160
+Kalisz:Lodz:102
+Kalisz:Opole:133
+Kalisz:Pila:194
+Kalisz:Poznan:115
+Kalisz:Torun:155
+Kalisz:Walbrzych:181
+Kalisz:Warszawa:225
+Kalisz:Wloclawek:129
+Kalisz:Wroclaw:112
+Kalisz:Zielona Gora:194
+
+Katowice:Bielsko-Biala:53
+Katowice:Bytom:13
+Katowice:Gliwice:27
+Katowice:Kalisz:195
+Katowice:Kielce:143
+Katowice:Krakow:75
+Katowice:Legnica:247
+Katowice:Lublin:296
+Katowice:Lodz:183
+Katowice:Nowy Sacz:153
+Katowice:Opole:97
+Katowice:Rzeszow:232
+Katowice:Tarnow:155
+Katowice:Walbrzych:220
+Katowice:Warszawa:281
+Katowice:Wloclawek:288
+Katowice:Wroclaw:183
+Katowice:Zakopane:137
+
+
+Kielce:Bielsko-Biala:175
+Kielce:Bytom:145
+Kielce:Chelm:219
+Kielce:Gliwice:165
+Kielce:Kalisz:221
+Kielce:Katowice:143
+Kielce:Krakow:110
+Kielce:Lublin:154
+Kielce:Lodz:139
+Kielce:Nowy Sacz:151
+Kielce:Opole:208
+Kielce:Rzeszow:145
+Kielce:Tarnow:107
+Kielce:Warszawa:167
+Kielce:Wloclawek:245
+Kielce:Wroclaw:275
+Kielce:Zakopane:197
+Kielce:Zamosć:201
+
+Koszalin:Bydgoszcz:184
+Koszalin:Elblag:229
+Koszalin:Gdansk:176
+Koszalin:Gorzow Wielkopolski:189
+Koszalin:Pila:132
+Koszalin:Poznan:223
+Koszalin:Slupsk:68
+Koszalin:Szczecin:148
+Koszalin:Świnoujscie:141
+Koszalin:Torun:225
+Koszalin:Wloclawek:280
+Koszalin:Zielona Gora:277
+
+Krakow:Bielsko-Biala:75
+Krakow:Bytom:86
+Krakow:Gliwice:102
+Krakow:Kalisz:250
+Krakow:Katowice:75
+Krakow:Kielce:110
+Krakow:Lublin:247
+Krakow:Lodz:208
+Krakow:Nowy Sacz:80
+Krakow:Opole:172
+Krakow:Rzeszow:159
+Krakow:Tarnow:81
+Krakow:Walbrzych:295
+Krakow:Warszawa:274
+Krakow:Wroclaw:256
+Krakow:Zakopane:92
+Krakow:Zamosć:267
+
+Legnica:Bielsko-Biala:279
+Legnica:Bydgoszcz:269
+Legnica:Bytom:235
+Legnica:Gliwice:222
+Legnica:Gorzow Wielkopolski:197
+Legnica:Kalisz:160
+Legnica:Katowice:247
+Legnica:Lodz:257
+Legnica:Opole:149
+Legnica:Pila:239
+Legnica:Poznan:156
+Legnica:Szczecin:294
+Legnica:Torun:284
+Legnica:Walbrzych:52
+Legnica:Wloclawek:278
+Legnica:Wroclaw:68
+Legnica:Zielona Gora:100
+
+Lublin:Bialystok:232
+Lublin:Chelm:69
+Lublin:Katowice:296
+Lublin:Kielce:154
+Lublin:Krakow:247
+Lublin:Lodz:242
+Lublin:Nowy Sacz:243
+Lublin:Rzeszow:152
+Lublin:Tarnow:192
+Lublin:Warszawa:166
+Lublin:Zamosć:82
+
+Lodz:Bielsko-Biala:236
+Lodz:Bydgoszcz:196
+Lodz:Bytom:175
+Lodz:Elblag:290
+Lodz:Gliwice:187
+Lodz:Kalisz:102
+Lodz:Katowice:183
+Lodz:Kielce:139
+Lodz:Krakow:208
+Lodz:Legnica:257
+Lodz:Lublin:242
+Lodz:Nowy Sacz:276
+Lodz:Olsztyn:255
+Lodz:Opole:175
+Lodz:Pila:261
+Lodz:Poznan:204
+Lodz:Rzeszow:284
+Lodz:Tarnow:241
+Lodz:Torun:164
+Lodz:Walbrzych:267
+Lodz:Warszawa:129
+Lodz:Wloclawek:111
+Lodz:Wroclaw:198
+Lodz:Zielona Gora:296
+
+Nowy Sacz:Bielsko-Biala:132
+Nowy Sacz:Bytom:165
+Nowy Sacz:Chelm:281
+Nowy Sacz:Gliwice:179
+Nowy Sacz:Katowice:153
+Nowy Sacz:Kielce:151
+Nowy Sacz:Krakow:80
+Nowy Sacz:Lublin:243
+Nowy Sacz:Lodz:276
+Nowy Sacz:Opole:251
+Nowy Sacz:Rzeszow:112
+Nowy Sacz:Tarnow:52
+Nowy Sacz:Zakopane:71
+Nowy Sacz:Zamosć:238
+
+Olsztyn:Bialystok:209
+Olsztyn:Bydgoszcz:195
+Olsztyn:Elblag:89
+Olsztyn:Gdansk:147
+Olsztyn:Lodz:255
+Olsztyn:Pila:280
+Olsztyn:Slupsk:258
+Olsztyn:Suwalki:179
+Olsztyn:Torun:164
+Olsztyn:Warszawa:191
+Olsztyn:Wloclawek:170
+
+Opole:Bielsko-Biala:135
+Opole:Bydgoszcz:297
+Opole:Bytom:85
+Opole:Gliwice:73
+Opole:Kalisz:133
+Opole:Katowice:97
+Opole:Kielce:208
+Opole:Krakow:172
+Opole:Legnica:149
+Opole:Lodz:175
+Opole:Nowy Sacz:251
+Opole:Poznan:223
+Opole:Tarnow:249
+Opole:Torun:288
+Opole:Walbrzych:126
+Opole:Warszawa:299
+Opole:Wloclawek:254
+Opole:Wroclaw:85
+Opole:Zakopane:229
+Opole:Zielona Gora:238
+
+Pila:Bydgoszcz:92
+Pila:Elblag:226
+Pila:Gdansk:199
+Pila:Gorzow Wielkopolski:120
+Pila:Kalisz:194
+Pila:Koszalin:132
+Pila:Legnica:239
+Pila:Lodz:262
+Pila:Olsztyn:280
+Pila:Poznan:91
+Pila:Slupsk:160
+Pila:Szczecin:161
+Pila:Świnoujscie:201
+Pila:Torun:136
+Pila:Walbrzych:288
+Pila:Wloclawek:180
+Pila:Wroclaw:248
+Pila:Zielona Gora:172
+
+Poznan:Bydgoszcz:117
+Poznan:Bytom:291
+Poznan:Elblag:277
+Poznan:Gdansk:266
+Poznan:Gliwice:287
+Poznan:Gorzow Wielkopolski:130
+Poznan:Kalisz:115
+Poznan:Koszalin:223
+Poznan:Legnica:156
+Poznan:Lodz:204
+Poznan:Opole:223
+Poznan:Pila:91
+Poznan:Slupsk:249
+Poznan:Szczecin:212
+Poznan:Świnoujscie:266
+Poznan:Torun:143
+Poznan:Walbrzych:202
+Poznan:Wloclawek:160
+Poznan:Wroclaw:157
+Poznan:Zielona Gora:119
+
+Rzeszow:Bielsko-Biala:230
+Rzeszow:Bytom:241
+Rzeszow:Chelm:175
+Rzeszow:Gliwice:260
+Rzeszow:Katowice:232
+Rzeszow:Kielce:145
+Rzeszow:Krakow:159
+Rzeszow:Lublin:152
+Rzeszow:Lodz:284
+Rzeszow:Nowy Sacz:112
+Rzeszow:Tarnow:78
+Rzeszow:Warszawa:275
+Rzeszow:Zakopane:184
+Rzeszow:Zamosć:127
+
+Szczecin:Bydgoszcz:252
+Szczecin:Gorzow Wielkopolski:97
+Szczecin:Koszalin:148
+Szczecin:Legnica:294
+Szczecin:Pila:161
+Szczecin:Poznan:212
+Szczecin:Slupsk:216
+Szczecin:Świnoujscie:62
+Szczecin:Torun:297
+Szczecin:Zielona Gora:193
+
+Tarnow:Bielsko-Biala:152
+Tarnow:Bytom:165
+Tarnow:Chelm:235
+Tarnow:Gliwice:182
+Tarnow:Katowice:155
+Tarnow:Kielce:107
+Tarnow:Krakow:81
+Tarnow:Lublin:192
+Tarnow:Lodz:241
+Tarnow:Nowy Sacz:52
+Tarnow:Opole:249
+Tarnow:Rzeszow:78
+Tarnow:Warszawa:268
+Tarnow:Zakopane:118
+Tarnow:Zamosć:195
+
+Torun:Bydgoszcz:44
+Torun:Elblag:150
+Torun:Gdansk:162
+Torun:Gorzow Wielkopolski:248
+Torun:Kalisz:155
+Torun:Koszalin:225
+Torun:Legnica:284
+Torun:Lodz:164
+Torun:Olsztyn:164
+Torun:Opole:288
+Torun:Pila:136
+Torun:Poznan:143
+Torun:Slupsk:208
+Torun:Szczecin:297
+Torun:Warszawa:201
+Torun:Wloclawek:56
+Torun:Wroclaw:258
+Torun:Zielona Gora:262
+
+Warszawa:Bialystok:192
+Warszawa:Bydgoszcz:245
+Warszawa:Bytom:277
+Warszawa:Chelm:226
+Warszawa:Elblag:260
+Warszawa:Gliwice:293
+Warszawa:Kalisz:225
+Warszawa:Katowice:281
+Warszawa:Kielce:167
+Warszawa:Krakow:274
+Warszawa:Lublin:166
+Warszawa:Lodz:129
+Warszawa:Olsztyn:191
+Warszawa:Opole:299
+Warszawa:Rzeszow:275
+Warszawa:Suwalki:267
+Warszawa:Tarnow:268
+Warszawa:Torun:201
+Warszawa:Wloclawek:152
+Warszawa:Zamosć:248
+
+Wroclaw:Bielsko-Biala:220
+Wroclaw:Bydgoszcz:254
+Wroclaw:Bytom:170
+Wroclaw:Gliwice:159
+Wroclaw:Gorzow Wielkopolski:238
+Wroclaw:Kalisz:112
+Wroclaw:Katowice:183
+Wroclaw:Kielce:275
+Wroclaw:Krakow:256
+Wroclaw:Legnica:68
+Wroclaw:Lodz:198
+Wroclaw:Opole:85
+Wroclaw:Pila:248
+Wroclaw:Poznan:157
+Wroclaw:Torun:258
+Wroclaw:Walbrzych:69
+Wroclaw:Wloclawek:240
+Wroclaw:Zielona Gora:152
+
+Zakopane:Bielsko-Biala:94
+Zakopane:Bytom:150
+Zakopane:Gliwice:156
+Zakopane:Katowice:137
+Zakopane:Kielce:196
+Zakopane:Krakow:92
+Zakopane:Nowy Sacz:71
+Zakopane:Opole:229
+Zakopane:Rzeszow:184
+Zakopane:Tarnow:118

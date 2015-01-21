@@ -1,0 +1,22 @@
+### Java ###
+*.class
+
+### IntelliJ ###
+.idea/
+*.iml
+*.iws
+
+### Eclipse ###
+.classpath
+.project
+.settings/
+
+### Jars ###
+carrier.jar
+client.jar
+commons.jar
+server.jar
+
+### Settings ###
+.setuplock
+.db

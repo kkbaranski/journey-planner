@@ -1,0 +1,58 @@
+#!/bin/bash
+#===============================================================
+#
+# [ author: Krzysztof Baranski ]
+#
+#       CARRIER ( setup )
+#
+#===============================================================
+
+db='.db'
+setuplock='.setuplock'
+
+echo "
+---------------------------------------------------
+-                  SETUP CARRIER                  -
+---------------------------------------------------"
+#--------------------------------------------------------------| check if configured
+if [ -f $setuplock ]
+then
+	echo "Project alredy configured"
+	exit 1
+fi
+
+#--------------------------------------------------------------| check postgreSQL
+echo "Checking postgreSQL..."
+which psql
+if [ $? -eq 0 ]
+then
+	echo "OK!"
+else
+	echo "PostgreSQL not found. Please install and configure PostgreSQL"
+	exit 1
+fi
+
+#--------------------------------------------------------------| prepare database
+echo "Preparing database..."
+echo -n "Database name: "
+read dbname
+echo -n "Username: "
+read username
+
+psql $dbname --username=$username --password < database/create.sql
+if [ "$?" == "0" ]
+then
+	echo "OK!"
+else
+	echo "Connection failed!"
+	exit 1
+fi
+
+echo "$dbname" > $db
+chmod -w $db
+
+touch $setuplock
+chmod 0 $setuplock
+
+echo "---------------------------------------------------
+"
