@@ -58,7 +58,7 @@ then
     fi
 fi
 
-#--------------------------------------------------------------| get credentials
+#--------------------------------------------------------------| get dbname
 echo
 if [ ! -f $db ]
 then
@@ -66,12 +66,9 @@ then
 	read dbname
 	echo "$dbname" > $db
 	chmod -w $db
+else
+	dbname=$( cat $db )
 fi
-echo -n "Database username: "
-read username
-echo -n "Password for username $username: "
-read -s password
-echo
 
 #--------------------------------------------------------------| run application
-$_java -cp "$project_jar:libs/*" -Djavax.net.ssl.keyStore=client_server_key -Djavax.net.ssl.keyStorePassword=123456 $main_class $dbname $username $password
+$_java -cp "$project_jar:libs/*" -Djavax.net.ssl.keyStore=client_server_key -Djavax.net.ssl.keyStorePassword=123456 $main_class $dbname

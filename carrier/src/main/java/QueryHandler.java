@@ -42,21 +42,24 @@ public class QueryHandler implements Runnable
 
 			boolean error;
 			error = getFrom( queryBuilder, printWriter, bufferedReader );
-			if(error) return;
+			if( error ) return;
 			error = getTo( queryBuilder, printWriter, bufferedReader );
-			if(error) return;
+			if( error ) return;
 			error = getDate( queryBuilder, printWriter, bufferedReader );
-			if(error) return;
+			if( error ) return;
 			error = getTime( queryBuilder, printWriter, bufferedReader );
-			if(error) return;
+			if( error ) return;
 
 			Query query = queryBuilder.build();
 			logger.info( query );
 
-			String response = new QueryExecutor( query ).execute();
+			Segment response = new QueryExecutor( query ).execute();
 			if( response == null ) {
 				logger.info( "No passing record" );
 				print( printWriter, ResponseCodes.NOTFOUND.toString() );
+			} else {
+				print( printWriter, ResponseCodes.FOUND.toString() );
+				print( printWriter, response );
 			}
 
 
@@ -80,7 +83,14 @@ public class QueryHandler implements Runnable
 		}
 	}
 
-	private boolean getFrom( Query.Builder queryBuilder, PrintWriter printWriter, BufferedReader bufferedReader ) throws IOException {
+	private void print( PrintWriter printWriter, Segment response ) {
+		print( printWriter, response.getStartTime().format( timeFormatter ) );
+		print( printWriter, response.getStopTime().format( timeFormatter ) );
+	}
+
+	private boolean getFrom( Query.Builder queryBuilder,
+	                         PrintWriter printWriter,
+	                         BufferedReader bufferedReader ) throws IOException {
 		String line = bufferedReader.readLine();
 		if( !Validator.checkFrom( line ) ) {
 			logger.info( "Validation error for '" + line + "'" );
@@ -93,7 +103,9 @@ public class QueryHandler implements Runnable
 		return false;
 	}
 
-	private boolean getTo( Query.Builder queryBuilder, PrintWriter printWriter, BufferedReader bufferedReader ) throws IOException {
+	private boolean getTo( Query.Builder queryBuilder,
+	                       PrintWriter printWriter,
+	                       BufferedReader bufferedReader ) throws IOException {
 		String line = bufferedReader.readLine();
 		if( !Validator.checkTo( line ) ) {
 			logger.info( "Validation error for '" + line + "'" );
@@ -106,7 +118,9 @@ public class QueryHandler implements Runnable
 		return false;
 	}
 
-	private boolean getDate( Query.Builder queryBuilder, PrintWriter printWriter, BufferedReader bufferedReader ) throws IOException {
+	private boolean getDate( Query.Builder queryBuilder,
+	                         PrintWriter printWriter,
+	                         BufferedReader bufferedReader ) throws IOException {
 		String line = bufferedReader.readLine();
 		if( !Validator.checkDate( line ) ) {
 			logger.info( "Validation error for '" + line + "'" );
@@ -127,7 +141,9 @@ public class QueryHandler implements Runnable
 		return false;
 	}
 
-	private boolean getTime( Query.Builder queryBuilder, PrintWriter printWriter, BufferedReader bufferedReader ) throws IOException {
+	private boolean getTime( Query.Builder queryBuilder,
+	                         PrintWriter printWriter,
+	                         BufferedReader bufferedReader ) throws IOException {
 		String line = bufferedReader.readLine();
 		if( !Validator.checkTime( line ) ) {
 			logger.error( "Validation error for '" + line + "'" );

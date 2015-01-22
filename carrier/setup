@@ -21,14 +21,14 @@ then
 	exit 1
 fi
 
-#--------------------------------------------------------------| check postgreSQL
-echo "Checking postgreSQL..."
-which psql
+#--------------------------------------------------------------| check SQLite
+echo "Checking SQLite3..."
+which sqlite3
 if [ $? -eq 0 ]
 then
 	echo "OK!"
 else
-	echo "PostgreSQL not found. Please install and configure PostgreSQL"
+	echo "SQLite3 not found. Please install SQLite3"
 	exit 1
 fi
 
@@ -36,15 +36,13 @@ fi
 echo "Preparing database..."
 echo -n "Database name: "
 read dbname
-echo -n "Username: "
-read username
 
-psql $dbname --username=$username --password < database/create.sql
+sqlite3 database/$dbname < database/create.sql
 if [ "$?" == "0" ]
 then
 	echo "OK!"
 else
-	echo "Connection failed!"
+	echo "Database creation failed!"
 	exit 1
 fi
 

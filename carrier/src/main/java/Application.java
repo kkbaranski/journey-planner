@@ -7,9 +7,15 @@ import org.apache.logging.log4j.Logger;
 public class Application
 {
 	public static void main( String[] args ) {
-		logger.info( "arguments:" );
-		for( String s : args ) logger.info( "  " + s );
 		logger.info( "==START==" );
+
+		if( args.length != 1 ) {
+			logger.error( "args.length = " + args.length );
+			return;
+		}
+
+		String databaseName = args[ 0 ];
+		TimetableAccessor.setDatabaseName( databaseName );
 
 		new Thread( new ApplicationServer() ).start();
 

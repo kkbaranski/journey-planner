@@ -9,7 +9,13 @@ public class QueryExecutor
 		this.query = query;
 	}
 
-	public String execute() {
-		return null;
+	public Segment execute() {
+		TimetableAccessor timetableAccessor = new TimetableAccessor();
+		if( timetableAccessor.openDatabase() ) return null;
+		try {
+			return timetableAccessor.getCourse( query );
+		} finally {
+			timetableAccessor.closeDatabase();
+		}
 	}
 }
