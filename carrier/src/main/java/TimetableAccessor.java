@@ -10,8 +10,9 @@ import java.time.format.DateTimeParseException;
 /**
  * @author krzysztof
  */
-public class TimetableAccessor
+public class TimetableAccessor implements DatabaseAccessor
 {
+	@Override
 	public boolean openDatabase() {
 		logger.info( "Opening database..." );
 		try {
@@ -25,6 +26,7 @@ public class TimetableAccessor
 		return false;
 	}
 
+	@Override
 	public boolean closeDatabase() {
 		logger.info( "Closing database..." );
 		try {

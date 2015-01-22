@@ -1,0 +1,135 @@
+\documentclass[pdftex,13pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[MeX]{polski}
+\usepackage{graphicx}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+\includegraphics[width=0.55\textwidth]{../logo.png}~\\[2cm]
+
+\textsc{\LARGE DOKUMENTACJA UŻYTKOWNIKA}\\[1.5cm]
+
+\textsc{\Large Projekt z Sieci Komputerowych i Bezpieczeństwa}\\[0.5cm]
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Wyszukiwarka połączeń \\[0.4cm] }
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Autor:}\\
+Krzysztof \textsc{Barański}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Nadzorujący:} \\
+dr~Edward \textsc{Szczypka}
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large Styczeń 2015}
+
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+\section{Wymagania}
+
+\subsection{Aplikacja kliencka}
+
+\paragraph{System operacyjny}\mbox{}\\
+	Linux\\
+	Testowany na \texttt{Linux debian 3.2.0-4-amd64}.
+
+\paragraph{Środowisko}\mbox{}\\
+	Java SE Development Kit w wersji 1.8\\
+	Bash
+
+\paragraph{Sprzęt}\mbox{}\\
+	Połączenie z internetem.
+
+\subsection{Aplikacja serwerowa}
+
+\paragraph{System operacyjny}\mbox{}\\
+	Linux\\
+	Testowany na \texttt{Linux debian 3.2.0-4-amd64}.
+
+\paragraph{Środowisko}\mbox{}\\
+	Java SE Development Kit w wersji 1.8\\
+	Bash
+
+\paragraph{Sprzęt}\mbox{}\\
+	Połączenie z internetem.
+
+\subsection{Aplikacja przewoźnika}
+
+\paragraph{System operacyjny}\mbox{}\\
+	Linux\\
+	Testowany na \texttt{Linux debian 3.2.0-4-amd64}.
+
+\paragraph{Środowisko}\mbox{}\\
+	Java SE Development Kit w wersji 1.8\\
+	SQLite3\\
+	Bash
+
+\paragraph{Sprzęt}\mbox{}\\
+	Połączenie z internetem.
+	
+\section{Konfiguracja}
+
+\subsection{Aplikacja kliencka}
+
+	W pliku \emph{client/config.properties} należy ustawić właściwości 	\emph{server\_address} i \emph{server\_port} odpowiednio na adres serwera i port, na którym nasłuchuje serwer. 
+  
+  Przykład: 
+  
+  \emph{server\_address=localhost}  
+  
+  \emph{server\_port=9911}
+  
+\subsection{Aplikacja serwerowa}
+
+	W pliku \emph{server/config.properties} należy ustawić właściwość \emph{server\_port} na port, na którym nasłuchuje serwer. 
+  
+  Przykład: 
+  
+  \emph{server\_port=9911}
+
+\subsection{Aplikacja przewoźnika}
+
+	W pliku \emph{carrier/config.properties} należy ustawić właściwość \emph{server\_port} na port, na którym nasłuchuje serwer. 
+  
+  Przykład: 
+  
+  \emph{server\_port=9911}
+
+\section{Uruchamianie}
+
+\subsection{Aplikacja kliencka}
+todo
+
+\subsection{Aplikacja serwerowa}
+todo
+
+\subsection{Aplikacja przewoźnika}
+todo
+
+\end{document}
+

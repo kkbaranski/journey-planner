@@ -1,0 +1,47 @@
+#!/bin/bash
+#===============================================================
+#
+# [ author: Krzysztof Baranski ]
+#
+#       SERVER ( uninstall )
+#
+#===============================================================
+
+setuplock='.setuplock'
+project_name='server'
+build='.build'
+source='source'
+main_class='Application'
+commons_dir='../commons'
+commons_jar='commons.jar'
+project_jar=$project_name.jar
+
+echo "
+---------------------------------------------------
+-                UNINSTALL SERVER                 -
+---------------------------------------------------"
+
+#--------------------------------------------------------------| remove setup lock
+echo "Removing setup lock..."
+rm -f $setuplock
+if [ $? -eq 0 ]
+then
+	echo "OK!"
+else
+	echo "Error!"
+fi
+
+#--------------------------------------------------------------| remove jars
+echo "Removing jars..."
+rm -vf libs/$commons_jar
+rm -vf $project_jar
+
+#--------------------------------------------------------------| remove logs
+if [ -d logs ]
+then
+	echo "Removing logs..."
+	rm -rvf logs
+fi
+
+echo "---------------------------------------------------
+"

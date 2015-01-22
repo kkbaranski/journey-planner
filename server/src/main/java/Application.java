@@ -7,20 +7,13 @@ import org.apache.logging.log4j.Logger;
 public class Application
 {
 	public static void main( String[] args ) {
-		logger.info( "==CARRIER START==" );
-
-		if( args.length != 1 ) {
-			logger.error( "args.length = " + args.length );
-			return;
-		}
-
-		String databaseName = args[ 0 ];
-		TimetableAccessor.setDatabaseName( databaseName );
+		logger.info( "==SERVER START==" );
 
 		new Thread( new ApplicationServer() ).start();
 
 
-		logger.info( "==CARRIER STOP==" );
+
+		logger.info( "==SERVER STOP==" );
 	}
 
 	private static final Logger logger = LogManager.getLogger( Application.class );

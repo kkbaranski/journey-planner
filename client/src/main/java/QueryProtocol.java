@@ -44,12 +44,17 @@ public class QueryProtocol
 			printWriter = new PrintWriter( new OutputStreamWriter( output ) );
 
 			sendQuery( printWriter, bufferedReader );
+			downloadRoute(printWriter, bufferedReader);
 		} catch( RuntimeException e ) {
 
 		} catch( IOException e ) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private void downloadRoute( PrintWriter printWriter, BufferedReader bufferedReader ) {
+		//todo
 	}
 
 	private boolean sendQuery( PrintWriter printWriter, BufferedReader bufferedReader ) {

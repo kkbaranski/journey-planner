@@ -41,16 +41,6 @@ public class ApplicationServer implements Runnable
 		logger.info( "Server stopped." );
 	}
 
-	public synchronized void stop() {
-		logger.info( "Stopping server..." );
-		this.isStopped = true;
-		try {
-			this.serverSocket.close();
-		} catch( IOException e ) {
-			throw new RuntimeException( "Error closing server", e );
-		}
-	}
-
 	private synchronized boolean isStopped() {
 		return this.isStopped;
 	}

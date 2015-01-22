@@ -1,0 +1,61 @@
+#!/bin/bash
+#===============================================================
+#
+# [ author: Krzysztof Baranski ]
+#
+#       SERVER ( run )
+#
+#===============================================================
+
+setuplock='.setuplock'
+project_name='server'
+build='.build'
+source='source'
+main_class='Application'
+commons_dir='../commons'
+commons_jar='commons.jar'
+project_jar=$project_name.jar
+
+echo "
+---------------------------------------------------
+-                   RUN SERVER                    -
+---------------------------------------------------"
+#--------------------------------------------------------------| check if configured
+if [ ! -f $setuplock ]
+then
+	echo "Project not configured. Run 'setup' script"
+	exit 1
+fi
+
+#--------------------------------------------------------------| check if compiled
+if [ ! -f $project_jar ]
+then
+	echo "Jar file: '$project_jar' not found. Run 'compile' script"
+	exit 1
+fi
+
+#--------------------------------------------------------------| check java
+echo "Checking java version..."
+if [[ -n $JAVA_HOME ]] && [[ -x $JAVA_HOME/bin/java ]]
+then
+    _java=$JAVA_HOME/bin/java
+    _javac=$JAVA_HOME/bin/javac
+    _jar=$JAVA_HOME/bin/jar
+else
+    echo "No java found! Please install Java 1.8"
+fi
+
+if [[ $_java ]]
+then
+    version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+    if [[ "$version" > "1.8" ]]
+    then
+        echo "OK!"
+    else
+        echo "Version is less than 1.8. Please install Java 1.8"
+        exit 1
+    fi
+fi
+
+#--------------------------------------------------------------| run application
+$_java -cp "$project_jar:libs/*" -Djavax.net.ssl.keyStore=client_server_key -Djavax.net.ssl.keyStorePassword=123456  $main_class

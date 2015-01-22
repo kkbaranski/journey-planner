@@ -9,7 +9,7 @@ Bialystok:Lublin:232
 Bialystok:Olsztyn:209
 Bialystok:Suwalki:119
 Bialystok:Warszawa:192
-Bialystok:Zamosć:291
+Bialystok:Zamosc:291
 
 Bielsko-Biala:Bytom:64
 Bielsko-Biala:Gliwice:64
@@ -73,7 +73,7 @@ Chelm:Nowy Sacz:281
 Chelm:Rzeszow:175
 Chelm:Tarnow:235
 Chelm:Warszawa:226
-Chelm:Zamosć:53
+Chelm:Zamosc:53
 
 Elblag:Bialystok:297
 Elblag:Bydgoszcz:160
@@ -190,7 +190,7 @@ Kielce:Warszawa:167
 Kielce:Wloclawek:245
 Kielce:Wroclaw:275
 Kielce:Zakopane:197
-Kielce:Zamosć:201
+Kielce:Zamosc:201
 
 Koszalin:Bydgoszcz:184
 Koszalin:Elblag:229
@@ -221,7 +221,7 @@ Krakow:Walbrzych:295
 Krakow:Warszawa:274
 Krakow:Wroclaw:256
 Krakow:Zakopane:92
-Krakow:Zamosć:267
+Krakow:Zamosc:267
 
 Legnica:Bielsko-Biala:279
 Legnica:Bydgoszcz:269
@@ -251,7 +251,7 @@ Lublin:Nowy Sacz:243
 Lublin:Rzeszow:152
 Lublin:Tarnow:192
 Lublin:Warszawa:166
-Lublin:Zamosć:82
+Lublin:Zamosc:82
 
 Lodz:Bielsko-Biala:236
 Lodz:Bydgoszcz:196
@@ -291,7 +291,7 @@ Nowy Sacz:Opole:251
 Nowy Sacz:Rzeszow:112
 Nowy Sacz:Tarnow:52
 Nowy Sacz:Zakopane:71
-Nowy Sacz:Zamosć:238
+Nowy Sacz:Zamosc:238
 
 Olsztyn:Bialystok:209
 Olsztyn:Bydgoszcz:195
@@ -379,7 +379,7 @@ Rzeszow:Nowy Sacz:112
 Rzeszow:Tarnow:78
 Rzeszow:Warszawa:275
 Rzeszow:Zakopane:184
-Rzeszow:Zamosć:127
+Rzeszow:Zamosc:127
 
 Szczecin:Bydgoszcz:252
 Szczecin:Gorzow Wielkopolski:97
@@ -406,7 +406,7 @@ Tarnow:Opole:249
 Tarnow:Rzeszow:78
 Tarnow:Warszawa:268
 Tarnow:Zakopane:118
-Tarnow:Zamosć:195
+Tarnow:Zamosc:195
 
 Torun:Bydgoszcz:44
 Torun:Elblag:150
@@ -446,7 +446,7 @@ Warszawa:Suwalki:267
 Warszawa:Tarnow:268
 Warszawa:Torun:201
 Warszawa:Wloclawek:152
-Warszawa:Zamosć:248
+Warszawa:Zamosc:248
 
 Wroclaw:Bielsko-Biala:220
 Wroclaw:Bydgoszcz:254

@@ -1,0 +1,135 @@
+#!/bin/bash
+#===============================================================
+#
+# [ author: Krzysztof Baranski ]
+#
+#       SERVER ( compile and create jar )
+#
+#===============================================================
+
+BUILD_COMMONS=true
+
+project_name='server'
+build='.build'
+source='source'
+main_class='Application'
+commons_dir='../commons'
+commons_jar='commons.jar'
+
+echo "
+---------------------------------------------------
+-                 COMPILE SERVER                  -
+---------------------------------------------------"
+
+#--------------------------------------------------------------| check java
+echo "Checking java version..."
+if [[ -n $JAVA_HOME ]] && [[ -x $JAVA_HOME/bin/java ]]
+then
+    _java=$JAVA_HOME/bin/java
+    _javac=$JAVA_HOME/bin/javac
+    _jar=$JAVA_HOME/bin/jar
+else
+    echo "No java found! Please install Java 1.8"
+fi
+
+if [[ $_java ]]
+then
+    version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+    if [[ "$version" > "1.8" ]]
+    then
+        echo "OK!"
+    else
+        echo "Version is less than 1.8. Please install Java 1.8"
+        exit 1
+    fi
+fi
+
+#--------------------------------------------------------------| remove build directory
+if [ -d $build ]
+then
+	echo "Removing build/ directory"
+	rm -rf $build
+	if [ $? -eq 0 ]
+	then
+		echo "OK!"
+	fi
+fi
+
+#--------------------------------------------------------------| create new build/ directory
+mkdir -p $build/$project_name
+
+#--------------------------------------------------------------| make commons
+if [ ! -f $commons_dir/$commons_jar ] || [ $BUILD_COMMONS = true ]
+then
+	echo "Creating 'commons.jar' file..."
+	pushd $commons_dir
+	./compile
+	popd
+fi
+
+#--------------------------------------------------------------| remove old commons
+if [ -f libs/$commons_jar ]
+then
+	echo "Removing old commons..."
+	rm libs/$commons_jar
+	if [ $? -eq 0 ]
+	then
+		echo "OK!"
+	fi
+fi
+
+#--------------------------------------------------------------| include commons
+echo "Including 'commons.jar' file"
+if [ -f $commons_dir/$commons_jar ]
+then
+	cp -v $commons_dir/$commons_jar libs
+else
+	"There is no 'commons.jar' file in dir: $commons_dir"
+	exit 1
+fi
+
+#--------------------------------------------------------------| find *.java files
+find src/ -name "*.java" > $build/$source
+
+#--------------------------------------------------------------| compile project
+echo "Project compilation..."
+$_javac -d $build/$project_name -cp "libs/*" @$build/$source
+if [ $? -eq 0 ]
+then
+	echo "OK!"
+fi
+
+#--------------------------------------------------------------| copy resources
+echo "Copying resources..."
+cp -v src/main/resources/* $build/$project_name
+cp -v src/test/resources/* $build/$project_name
+
+#--------------------------------------------------------------| remove old jar
+if [ -f $project_name.jar ]
+then
+	echo "Removing old jar file..."
+	rm $project_name.jar
+	if [ $? -eq 0 ]
+	then
+		echo "OK!"
+	fi
+fi
+
+#--------------------------------------------------------------| create jar
+echo "Creating jar..."
+$_jar cf $project_name.jar -C $build/$project_name .
+if [ $? -eq 0 ]
+then
+	echo "OK!"
+fi
+
+#--------------------------------------------------------------| clean
+echo "Cleaning..."
+rm -rf $build
+if [ $? -eq 0 ]
+then
+	echo "OK!"
+fi
+
+echo "---------------------------------------------------
+"

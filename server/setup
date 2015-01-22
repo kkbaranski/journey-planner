@@ -3,7 +3,7 @@
 #
 # [ author: Krzysztof Baranski ]
 #
-#       CLIENT ( setup )
+#       SERVER ( setup )
 #
 #===============================================================
 
@@ -11,12 +11,12 @@ setuplock='.setuplock'
 
 echo "
 ---------------------------------------------------
--                  SETUP CLIENT                   -
+-                  SETUP SERVER                   -
 ---------------------------------------------------"
 #--------------------------------------------------------------| check if configured
 if [ -f $setuplock ]
 then
-	echo "Project already configured"
+	echo "Project alredy configured"
 	exit 1
 fi
 
