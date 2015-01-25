@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -53,6 +54,10 @@ public class CarriersAccessor implements DatabaseAccessor
 	@Override
 	public boolean closeDatabase() {
 		return false;
+	}
+
+	public Collection<Carrier> getCarriers() {
+		return carriers;
 	}
 
 	private final List<Carrier> carriers = new ArrayList<>();

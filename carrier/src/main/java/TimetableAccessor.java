@@ -45,22 +45,30 @@ public class TimetableAccessor implements DatabaseAccessor
 		LocalDate date = query.getDate();
 		LocalTime time = query.getTime();
 
-		String statement = "select start_time, stop_time " +
-		                   "from timetable " +
-		                   "where from_city = '" + from + "' " +
-		                   "and to_city = '" + to + "' " +
-		                   "and start_time >= '" + time + "' " +
-		                   "order by stop_time " +
-		                   "limit 1 ";
+		String statementToday = "select start_time, stop_time " +
+		                        "from timetable " +
+		                        "where from_city = '" + from + "' " +
+		                        "and to_city = '" + to + "' " +
+		                        "and start_time >= '" + time + "' " +
+		                        "order by stop_time " +
+		                        "limit 1 ";
 
-		logger.info( "STATEMENT: " + statement );
+		String statementTomorrow = "select start_time, stop_time " +
+		                           "from timetable " +
+		                           "where from_city = '" + from + "' " +
+		                           "and to_city = '" + to + "' " +
+		                           "order by stop_time " +
+		                           "limit 1 ";
+
+
+		logger.info( "STATEMENT: " + statementToday );
 
 		Statement st = null;
 		ResultSet rs = null;
 
 		try {
 			st = connection.createStatement();
-			rs = st.executeQuery( statement );
+			rs = st.executeQuery( statementToday );
 
 			if( rs.next() ) {
 				String startTimeString = rs.getString( "start_time" );
@@ -81,12 +89,41 @@ public class TimetableAccessor implements DatabaseAccessor
 				return new Segment.Builder( "" ).setFrom( from )
 				                                .setTo( to )
 				                                .setStartDate( date )
-				                                .setStopDate( date )
+				                                .setStopDate( date.plusDays( startTime.isAfter( stopTime ) ? 1 : 0 ) )
 				                                .setStartTime( startTime )
 				                                .setStopTime( stopTime )
 				                                .build();
 			} else {
-				logger.info( "No result" );
+				st = connection.createStatement();
+				rs = st.executeQuery( statementTomorrow );
+
+				if( rs.next() ) {
+					String startTimeString = rs.getString( "start_time" );
+					String stopTimeString = rs.getString( "stop_time" );
+					logger.info( "start_time = " + startTimeString );
+					logger.info( "stop_time = " + stopTimeString );
+
+					LocalTime startTime;
+					LocalTime stopTime;
+					try {
+						startTime = LocalTime.parse( startTimeString, timeFormatter );
+						stopTime = LocalTime.parse( stopTimeString, timeFormatter );
+					} catch( DateTimeParseException e ) {
+						logger.warn( e.getMessage(), e );
+						return null;
+					}
+
+					return new Segment.Builder( "" ).setFrom( from )
+					                                .setTo( to )
+					                                .setStartDate( date.plusDays( 1 ) )
+					                                .setStopDate( date.plusDays( 1 )
+					                                                  .plusDays( startTime.isAfter( stopTime ) ? 1 : 0 ) )
+					                                .setStartTime( startTime )
+					                                .setStopTime( stopTime )
+					                                .build();
+				} else {
+					logger.info( "No result" );
+				}
 			}
 		} catch( SQLException e ) {
 			logger.error( "Query problem" );

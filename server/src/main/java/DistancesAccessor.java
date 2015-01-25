@@ -84,19 +84,33 @@ public class DistancesAccessor implements DatabaseAccessor
 		return false;
 	}
 
+	public List<String> getNeighbours(String city) {
+		List<String> ret = new ArrayList<>(  );
+		if(existsCity( city )) {
+			for(City c : distGraph.elementAt( numberOfCity.get( city ) )) {
+				ret.add( nameOfCityNumber.elementAt( c.number ) );
+			}
+		}
+		return ret;
+	}
+
+	public boolean existsCity(String city) {
+		return numberOfCity.containsKey( city );
+	}
+
 	@Override
 	public boolean closeDatabase() {
 		return false;
 	}
 
-	private boolean opened = false;
-	private Vector<String> nameOfCityNumber = new Vector<>();
-	private Map<String,Integer> numberOfCity = new HashMap<>();
-	private Vector<Set<City>> distGraph = new Vector<>();
-	private String distancesFile = "database/distances.db";
+	private static boolean opened = false;
+	private static Vector<String> nameOfCityNumber = new Vector<>();
+	private static Map<String,Integer> numberOfCity = new HashMap<>();
+	private static Vector<Set<City>> distGraph = new Vector<>();
+	private static String distancesFile = "database/distances.db";
 	private static final Logger logger = LogManager.getLogger( DistancesAccessor.class );
 
-	private class City
+	private static class City
 	{
 		public int number;
 		public int dist;

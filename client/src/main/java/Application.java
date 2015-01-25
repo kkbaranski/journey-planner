@@ -1,13 +1,9 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author krzysztof
@@ -23,10 +19,45 @@ public class Application
 			logger.info( query );
 
 			Route route = RouteUtils.getRoute( query );
+			printRoute( route );
 		} while( nextSearch() );
 
 
 		logger.info( "==CLIENT STOP==" );
+	}
+
+	private static void printRoute( Route route ) {
+		ResponseCodes status = route.getStatus();
+		System.out.println( "" );
+		if( status != ResponseCodes.OK ) {
+			Utils.printError( status.reason() );
+			System.out.println( "Connection has not found!" );
+			return;
+		} else {
+			System.out.println( "Connection has found!" );
+		}
+
+		int numerator = 1;
+		for( Segment seg : route ) {
+			System.out.println( numerator + ") " + seg.getFrom() + " -> " + seg.getTo() );
+			System.out.println( "    departure: " +
+			                    LocalDateTime.of( seg.getStartDate(), seg.getStartTime() )
+			                                 .format( DateTimeUtils.YYYY_MM_DD_HH_MM ) );
+			System.out.println( "      arrival: " +
+			                    LocalDateTime.of( seg.getStopDate(), seg.getStopTime() )
+			                                 .format( DateTimeUtils.YYYY_MM_DD_HH_MM ) );
+			System.out.println( "      carrier: " + seg.getCarrier() );
+			++numerator;
+		}
+
+		System.out.println( "" );
+		System.out.println( "___________________________________" );
+		System.out.println( "  TOTAL TIME: " +
+		                    ( route.getTotalTime() / 3600 ) +
+		                    " hours " +
+		                    ( ( route.getTotalTime() % 3600 ) / 60 ) +
+		                    " minutes" );
+		System.out.println( "" );
 	}
 
 	private static Query getQuery() {
@@ -34,82 +65,86 @@ public class Application
 		System.out.println( "    SEARCH CONNECTION    " );
 		System.out.println( "  ---------------------  " );
 		String from = getFrom();
-		String to = getTo();
+		String to = getTo( from );
 		LocalDate date = getDate();
 		LocalTime time = getTime();
 		return new Query.Builder( from, to ).setDate( date ).setTime( time ).build();
 	}
 
 	private static String getFrom() {
-		String result;
-		boolean ok;
+		String result = null;
+		boolean error;
 		do {
 			String line = Utils.getLineFromStdin( "  FROM" );
-			ok = Validator.checkFrom( line );
-			if( !ok ) {
+			error = Validator.checkCity( line );
+			if( error ) {
 				logger.info( "Validation error for '" + line + "'" );
 				Utils.printError( "Invalid city name. Try again. Example: Zakopane" );
+			} else {
+				result = line;
 			}
-			result = line;
-		} while( !ok );
+		} while( error );
 		return result;
 	}
 
-	private static String getTo() {
-		String result;
-		boolean ok;
+	private static String getTo( String from ) {
+		String result = null;
+		boolean error;
 		do {
 			String line = Utils.getLineFromStdin( "    TO" );
-			ok = Validator.checkTo( line );
-			if( !ok ) {
+			error = Validator.checkCity( line );
+			if( error ) {
 				logger.info( "Validation error for '" + line + "'" );
 				Utils.printError( "Invalid city name. Try again. Example: Gdansk" );
+			} else if( line.equals( from ) ) {
+				error = true;
+				logger.info( "The same city" );
+				Utils.printError( "Target city must be different. Try again." );
+			} else {
+				result = line;
 			}
-			result = line;
-		} while( !ok );
+		} while( error );
 		return result;
 	}
 
 	private static LocalDate getDate() {
 		LocalDate result = null;
-		boolean ok;
+		boolean error;
 		do {
 			String line = Utils.getLineFromStdin( "  DATE" );
-			ok = Validator.checkIsoDate( line );
-			if( !ok ) {
+			error = Validator.checkDate( line, DateTimeUtils.YYYY_MM_DD );
+			if( error ) {
 				logger.info( "Validation error for '" + line + "'" );
-				Utils.printError( "Invalid date format. Try again. Example: " + LocalDate.now().format( dateFormatter ) );
+				Utils.printError( "Invalid date format. Try again. Example: " +
+				                  LocalDate.now().format( DateTimeUtils.YYYY_MM_DD ) );
 			} else {
-				result = LocalDate.parse( line, dateFormatter );
+				result = LocalDate.parse( line, DateTimeUtils.YYYY_MM_DD );
 			}
-		} while( !ok );
+		} while( error );
 		return result;
 	}
 
 	private static LocalTime getTime() {
 		LocalTime result = null;
-		boolean ok;
+		boolean error;
 		do {
 			String line = Utils.getLineFromStdin( "  TIME" );
-			ok = Validator.checkIsoTime( line );
-			if( !ok ) {
+			error = Validator.checkTime( line, DateTimeUtils.HH_MM );
+			if( error ) {
 				logger.info( "Validation error for '" + line + "'" );
-				Utils.printError( "Invalid time format. Try again. Example: " + LocalTime.now().format( timeFormatter ) );
+				Utils.printError( "Invalid time format. Try again. Example: " +
+				                  LocalTime.now().format( DateTimeUtils.HH_MM ) );
 			} else {
-				result = LocalTime.parse( line, timeFormatter );
+				result = LocalTime.parse( line, DateTimeUtils.HH_MM );
 			}
-		} while( !ok );
+		} while( error );
 		return result;
 	}
 
 	private static boolean nextSearch() {
-		String ret = Utils.getLineFromStdin( "Would you like to find a new connection? If you want, type 'yes'" );
+		String ret = Utils.getLineFromStdin( "Would you like to find a new connection? If so, type 'yes'" );
 		return ret.equals( "yes" );
 	}
 
-
-
-	private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd" );
-	private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern( "HH:mm" );
 	private static final Logger logger = LogManager.getLogger( Application.class );
 }

@@ -5,7 +5,6 @@ public class RouteUtils
 {
 
 	public static Route getRoute( Query query ) {
-		Route route = new QueryProtocol( query ).getRoute();
-		return null;
+		return new QueryProtocol( query ).getRoute();
 	}
 }

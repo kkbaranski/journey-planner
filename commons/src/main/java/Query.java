@@ -2,7 +2,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.MissingResourceException;
 
 /**
@@ -14,12 +17,12 @@ public class Query
 	{
 		public Builder() {}
 
-		public Builder(String from, String to) {
+		public Builder( String from, String to ) {
 			this.from = from;
 			this.to = to;
 		}
 
-		public Builder(String from, String to, LocalDate date, LocalTime time) {
+		public Builder( String from, String to, LocalDate date, LocalTime time ) {
 			this.from = from;
 			this.to = to;
 			this.date = date;
@@ -50,23 +53,47 @@ public class Query
 			return new Query( from, to, date, time );
 		}
 
-		public Builder setFrom(String from) {
+		public Builder setFrom( String from ) {
 			this.from = from;
 			return this;
 		}
 
-		public Builder setTo(String to) {
+		public Builder setTo( String to ) {
 			this.to = to;
 			return this;
 		}
 
-		public Builder setDate(LocalDate date) {
+		public Builder setDate( LocalDate date ) {
 			this.date = date;
 			return this;
 		}
 
-		public Builder setTime(LocalTime time) {
+		public Builder setDate( String date, DateTimeFormatter formatter ) {
+			try {
+				this.date = LocalDate.parse( date, formatter );
+			} catch( DateTimeParseException e ) {
+				logger.error( "Problem with parsing date: " + date );
+			}
+			return this;
+		}
+
+		public Builder setTime( LocalTime time ) {
 			this.time = time;
+			return this;
+		}
+
+		public Builder setTime( String time, DateTimeFormatter formatter ) {
+			try {
+				this.time = LocalTime.parse( time, formatter );
+			} catch( DateTimeParseException e ) {
+				logger.error( "Problem with parsing time: " + time );
+			}
+			return this;
+		}
+
+		public Builder setDateTime(LocalDateTime dateTime) {
+			this.date = dateTime.toLocalDate();
+			this.time = dateTime.toLocalTime();
 			return this;
 		}
 
@@ -80,14 +107,14 @@ public class Query
 	@Override
 	public String toString() {
 		return "Query{" +
-				"from='" + from + '\'' +
-				", to='" + to + '\'' +
-				", date=" + date +
-				", time=" + time +
-				'}';
+		       "from='" + from + '\'' +
+		       ", to='" + to + '\'' +
+		       ", date=" + date +
+		       ", time=" + time +
+		       '}';
 	}
 
-	private Query(String from, String to, LocalDate date, LocalTime time) {
+	private Query( String from, String to, LocalDate date, LocalTime time ) {
 		this.from = from;
 		this.to = to;
 		this.date = date;

@@ -11,8 +11,6 @@ public class Application
 
 		new Thread( new ApplicationServer() ).start();
 
-
-
 		logger.info( "==SERVER STOP==" );
 	}
 

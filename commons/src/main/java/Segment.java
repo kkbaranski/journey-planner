@@ -2,6 +2,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.MissingResourceException;
 
@@ -147,20 +148,32 @@ public class Segment
 		return stopTime;
 	}
 
+	public LocalDateTime getStartDateTime() {
+		return LocalDateTime.of( getStartDate(), getStartTime() );
+	}
+
+	public LocalDateTime getStopDateTime() {
+		return LocalDateTime.of( getStopDate(), getStopTime() );
+	}
+
+	public void setCarrier( String name ) {
+		this.carrier = name;
+	}
+
 	@Override
 	public String toString() {
 		return "Segment{" +
-				"carrier='" + carrier + '\'' +
-				", from='" + from + '\'' +
-				", to='" + to + '\'' +
-				", startDate=" + startDate +
-				", stopDate=" + stopDate +
-				", startTime=" + startTime +
-				", stopTime=" + stopTime +
-				'}';
+		       "carrier='" + carrier + '\'' +
+		       ", from='" + from + '\'' +
+		       ", to='" + to + '\'' +
+		       ", startDate=" + startDate +
+		       ", stopDate=" + stopDate +
+		       ", startTime=" + startTime +
+		       ", stopTime=" + stopTime +
+		       '}';
 	}
 
-	private final String carrier;
+	private String carrier;
 	private final String from;
 	private final String to;
 	private final LocalDate startDate;
