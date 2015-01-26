@@ -31,6 +31,27 @@ else
 	echo "Error!"
 fi
 
+#--------------------------------------------------------------| reset config file
+echo "Reseting config file..."
+sed -i config.properties -e '/server_port/cserver_port='
+if [ $? -eq 0 ]
+then
+	echo "OK!"
+else
+	echo "Error!"
+fi
+
+#--------------------------------------------------------------| remove carriers
+echo "Removing carriers from database..."
+sed -i database/carriers.db -e '/^#/!d'
+if [ $? -eq 0 ]
+then
+	echo "OK!"
+else
+	echo "Error!"
+fi
+
+
 #--------------------------------------------------------------| remove jars
 echo "Removing jars..."
 rm -vf libs/$commons_jar

@@ -1,0 +1,97 @@
+#!/bin/bash
+#===============================================================
+#
+# [ author: Krzysztof Baranski ]
+#
+#       SERVER ( carriers utils )
+#
+#===============================================================
+USAGE="
+usage: $0 view|add|remove
+
+  view      prints all carriers with address and port
+  add       adds a new carrier
+  remove    removes carrier(s)
+"
+carriers_db='database/carriers.db'
+
+#--------------------------------------------------------------| no arguments
+if [ $# == 0 ]
+then
+	echo "$USAGE"
+	exit 1
+fi
+
+command=$1
+
+# PRINT ALL CARRIERS
+if [ $command == "view" ]
+then
+	echo "=== CARRIERS ==="
+	sed -e '/^#\|^$/d' -e '/^.*:.*:[0-9]*$/!d' -e "s/^\([^:]*\):\([^:]*\):\([0-9]*\)$/CARRIER: name='\1', address='\2', port=\3/" $carriers_db
+	exit 0
+fi
+
+# ADD A NEW CARRIER
+if [ $command == "add" ]
+then
+	echo -n "New carrier name: "
+	read new_carrier_name
+	if ! [[ "$new_carrier_name" =~ ^[A-Za-z0-9\ _-]*$ ]]
+	then
+		echo "Name can only contains letters, digits, space and characters: '-' and '_'"
+		exit 1
+	fi
+
+	echo -n "Server address for new carrier: "
+	read new_carrier_address
+	if ! [[ "$new_carrier_address" =~ ^[A-Za-z0-9\ ._-]*$ ]]
+	then
+		echo "Address can only contains letters, digits and characters: -_.,/@"
+		exit 1
+	fi
+
+	echo -n "Server port: "
+	read new_carrier_port
+	if ! [[ "$new_carrier_port" =~ ^[0-9]*$ ]]
+	then
+		echo "Port can only contain digits"
+		exit 1
+	fi
+
+	echo "$new_carrier_name:$new_carrier_address:$new_carrier_port" >> $carriers_db
+	if [ $? -eq 0 ]
+	then
+		echo "New carrier added."
+	else
+		echo "Error!"
+		exit 1
+	fi
+	exit 0
+fi
+
+# REMOVE CARRIER
+if [ $command == "remove" ]
+then
+	echo -n "Name of carrier to remove ( you can use regex ): "
+	read remove_carrier_name
+
+	echo "Following carriers will be removed:"
+	sed -n -e '/^#\|^$/d' -e "/$remove_carrier_name/s/^\([^:]*\):\([^:]*\):\([0-9]*\)$/  CARRIER: name='\1', address='\2', port=\3/p" $carriers_db
+
+	echo -n "Are you sure? [ yes/no ]:"
+	read response
+
+	if [ "$response" == "yes" ]
+	then
+		sed -i $carriers_db -e "/$remove_carrier_name/d"
+		if [ $? -eq 0 ]
+		then
+			echo "Carriers removed."
+		else
+			echo "Error!"
+			exit 1
+		fi
+	fi
+	exit 0
+fi

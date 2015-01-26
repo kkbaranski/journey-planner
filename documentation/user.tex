@@ -96,40 +96,106 @@ dr~Edward \textsc{Szczypka}
 
 \subsection{Aplikacja kliencka}
 
-	W pliku \emph{client/config.properties} należy ustawić właściwości 	\emph{server\_address} i \emph{server\_port} odpowiednio na adres serwera i port, na którym nasłuchuje serwer. 
-  
-  Przykład: 
-  
-  \emph{server\_address=localhost}  
-  
-  \emph{server\_port=9911}
+	Przed uruchomieniem aplikacji należy ją skompilować - służy do tego skrypt \emph{compile} znajdujący się w katalogu \emph{client}. Następnie należy uruchomić skrypt \emph{setup} znajdujący się w tym samym katalogu w celu skonfigurowania aplikacji. Podczas konfiguracji wymagane będzie podanie adresu serwera i portu, na którym serwer nasłuchuje.
   
 \subsection{Aplikacja serwerowa}
 
-	W pliku \emph{server/config.properties} należy ustawić właściwość \emph{server\_port} na port, na którym nasłuchuje serwer. 
-  
-  Przykład: 
-  
-  \emph{server\_port=9911}
+	Przed uruchomieniem serwera należy go skompilować wywołując skrypt \emph{compile} znajdujący się w katalogu \emph{server}. Następnie należy skonfigurować serwer za pomocą skryptu \emph{setup}. Podczas konfiguracji wymagane będzie podanie portu, na którym będzie nasłuchiwał serwer.
+	
+	Przewoźników można wyświetlać, dodawać i usuwać za pomocą skryptu \emph{carriers}. Uruchomienie bez żadnych parametrów wyświetla pomoc.
+Można to również zrobić ręcznie, edytując plik \emph{server/database/carriers.db}.
 
 \subsection{Aplikacja przewoźnika}
 
-	W pliku \emph{carrier/config.properties} należy ustawić właściwość \emph{server\_port} na port, na którym nasłuchuje serwer. 
-  
-  Przykład: 
-  
-  \emph{server\_port=9911}
+	Przed uruchomieniem aplikacji przewoźnika należy ją skompilować wywołując skrypt \emph{compile} znajdujący się w katalogu \emph{carrier}. Następnie należy skonfigurować aplikację za pomocą skryptu \emph{setup}. Podczas konfiguracji wymagane będzie podanie nazwy przewoźnika ( np. nazwa firmy przewozowej ), numeru portu, na którym będzie nasłuchiwał serwer przewoźnika oraz nazwę bazy danych, która zostanie stworzona w celu przechowywania rozkładu jazdy.
+	
+	W katalogu \emph{carrier} znajduje się również skrypt \emph{random\_timetable}, który służy do wypełniania bazy danych losowym rozkładem jazdy. Podczas działania, skrypt zapyta o liczbę rekordów do wygenerowania. Skrypt można wywoływać zarówno przed, jak i po skonfigurowaniu aplikacji wielokrotnie - za każdym razem zostanie dodane do bazy tyle rekordów ile zostało podane podczas działania skryptu.
 
 \section{Uruchamianie}
 
 \subsection{Aplikacja kliencka}
-todo
+	Aby uruchomić skompilowaną i skonfigurowaną aplikację klienta należy w katalogu \emph{client} uruchomić skrypt \emph{run}.
 
 \subsection{Aplikacja serwerowa}
-todo
+	Aby uruchomić skompilowaną i skonfigurowaną aplikację serwerową należy w katalogu \emph{server} uruchomić skrypt \emph{run}.
 
 \subsection{Aplikacja przewoźnika}
-todo
+	Aby uruchomić skompilowaną i skonfigurowaną aplikację przewoźnika należy w katalogu \emph{carrier} uruchomić skrypt \emph{run}.
+
+\section{Obsługa}
+
+\subsection{Aplikacja kliencka}
+	Po uruchomieniu aplikacji, w oknie konsoli pojawi się logo projektu oraz początek sesji wyszukiwania połączenia.
+	
+	Po słowie \textbf{FROM:} oraz \textbf{TO:} należy wpisać odpowiednio: miasto początkowe i końcowe podróży, używając wyłącznie liter alfabetu angielskiego, pauzy lub spacji. Lista dostępnych miast znajduje się na końcu dokumentacji.\\
+	
+	Następnie po słowie \textbf{DATE:} należy wpisać datę początku podróży w formacie \emph{YYYY-MM-DD}, np. \emph{2015-01-26}.\\
+	
+	Na koniec po słowie \textbf{TIME:} należy wpisać godzinę początku podróży w formacie \emph{HH:MM}, np. \emph{07:56}.\\
+	
+	Jeżeli istnieje połączenie podane w zapytaniu, aplikacja znajdzie je, a następnie wypisze kolejne odcinki podróży.
+	
+	Aby wyszukać kolejne połączenie, należy po linii: \textit{"Would you like to find a new connection? If so, type 'yes':"} wpisać słowo \textit{"yes"} bez cudzysłowu. Każde inne słowo, w szczególności pusta linia, kończy działanie aplikacji. 
+	
+\subsection{Aplikacja serwerowa}
+	Obsługa serwera polega jedynie na sprawdzaniu, czy działa. Serwer jest odporny na różnego rodzaju błędy i wyjątki, aczkolwiek może się zdarzyć nieprzewidziany dotąd błąd, po którym aplikacja się zatrzyma. W celu zatrzymania aplikacji, w obecnej wersji należy wysłać jej jakiś mocny sygnał np. SIGINT ( w konsoli zazwyczaj Ctrl+C ).
+
+\subsection{Aplikacja przewoźnika}
+	Obsługa aplikacji przewoźnika jest analogiczna do obsługi aplikacji serwera.
+	
+\section{Odinstalowywanie}
+
+\subsection{Aplikacja kliencka}
+W celu odinstalowania (lub też przywrócenia stanu aplikacji do stanu wyjściowego) należy uruchomić skrypt \emph{uninstall} w odpowiednim podkatalogu projektu.
+
+\subsection{Aplikacja serwerowa}
+Patrz: Aplikacja kliencka
+
+\subsection{Aplikacja przewoźnika}
+Patrz: Aplikacja kliencka
+
+\section{Lista obsługiwanych miast}
+
+Poniżej znajduje się lista miast, które są aktualnie obsługiwane przez wyszukiwarkę:
+
+\begin{itemize}
+\item Bialystok
+\item Bielsko-Biala
+\item Bydgoszcz
+\item Bytom
+\item Chelm
+\item Elblag
+\item Gdansk
+\item Gliwice
+\item Gorzow Wielkopolski
+\item Kalisz
+\item Katowice
+\item Kielce
+\item Koszalin
+\item Krakow
+\item Legnica
+\item Lublin
+\item Lodz
+\item Nowy Sacz
+\item Olsztyn
+\item Opole
+\item Pila
+\item Poznan
+\item Rzeszow
+\item Slupsk
+\item Suwalki
+\item Szczecin
+\item Swinoujscie
+\item Tarnow
+\item Torun
+\item Walbrzych
+\item Warszawa
+\item Wloclawek
+\item Wroclaw
+\item Zakopane
+\item Zamosc
+\item Zielona Gora
+\end{itemize}
 
 \end{document}
 

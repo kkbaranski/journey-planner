@@ -1,0 +1,401 @@
+\documentclass[pdftex,13pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[MeX]{polski}
+\usepackage{graphicx}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+%\usetikzlibrary{shapes,snakes}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+\includegraphics[width=0.75\textwidth]{../logo.png}~\\[2cm]
+
+%\includegraphics[width=0.15\textwidth]{./logo}~\\[1cm]
+
+\textsc{\LARGE DOKUMENTACJA TECHNICZNA I OPIS PROTOKOŁÓW}\\[1.5cm]
+
+\textsc{\Large Projekt z Sieci Komputerowych i Bezpieczeństwa}\\[0.5cm]
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Wyszukiwarka połączeń \\[0.4cm] }
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Autor:}\\
+Krzysztof \textsc{Barański}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Nadzorujący:} \\
+dr~Edward \textsc{Szczypka}
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large Styczeń 2015}
+
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+
+
+\newpage
+\section{Ogólny opis projektu}
+
+\subsection{Opis projektu}
+
+\subsubsection{Cel}
+Celem projektu jest stworzenie oprogramowania do planowania podróży. Aplikacja w założeniu przeznaczona jest do planowania podróży na całym świecie używając wielu środków transportu takich jak: autobusy, pociągi, samoloty i inne.
+
+\subsubsection{Aktualna wersja}
+Obecnie aplikacja przeznaczona jest do wyszukiwania połączeń między kilkudziesięcioma największymi miastami w Polsce za pomocą dowolnego środka transportu. W obecnej wersji aplikacja pozwala wyznaczyć trasę z miasta A do miasta B, uwzględniając odległość i czas podróży, a także rozkłady jazdy dostarczane przez przewoźników.
+
+\subsubsection{Planowane rozszerzenia}
+W przyszłych wersjach, aplikacja miałaby uwzględniać także ceny biletów, oraz inne aspekty ważne przy planowaniu podróży. Oczywiście zostałaby rozszerzona baza miast. Zostałoby również dodane logowanie użytkowników, które umożliwiłoby przechowywanie powtarzających się danych takich jak np. adres czy numer telefonu.
+
+
+\subsection{Struktura projektu}
+
+\subsubsection{Cel}
+Celem strukturalnym jest stworzenie aplikacji, która będzie zainstalowana bądź dostępna poprzez serwis WWW dla klientów i pobierająca od niego dane potrzebne do jak najlepszego zaplanowania jego podróży. Aplikacja kliencka będzie te dane wysyłać do jednego z wielu serwerów, które będą zajmowały się wyznaczaniem trasy. Każdy z serwerów będzie komunikował się z zarejestrowanymi przewoźnikami-serwerami posiadającymi bazę danych z ich rozkładem jazdy. Następnie wyznaczoną trasę serwer będzie wysyłał jako odpowiedź do klienta.
+
+\subsubsection{Aktualna wersja}
+W aktualnej wersji serwery nie komunikują się ze sobą, przez co gdy jeden jest przeciążony nie może zlecić zadania innemu serwerowi. Zapytania do serwerów są wysyłane z aplikacji zainstalowanych na komputerach klientów.
+
+\subsubsection{Planowane rozszerzenia}
+W przyszłych wersjach zostałby dodany serwis WWW obsługujący zapytania klientów, a także wraz z rozszerzaniem liczby miast zostałoby dodanych więcej serwerów obsługujących zapytania oraz komunikacji między nimi, w celu przyspieszenia czasu przesyłanych danych oraz możliwość obsługi większej liczby klientów.
+
+
+\section{Ogólna analiza wymagań stawianych aplikacji}
+
+\subsection{Analiza problemów}
+
+\subsubsection{Wymagania funkcjonalne}
+
+\begin{itemize}
+\item \texttt{Przesyłanie danych}
+\item \texttt{Weryfikacja danych}
+\item \texttt{Przechowywanie i zarządzanie danymi}
+\item \texttt{Prezentacja danych}
+\end{itemize}
+
+\subsubsection{Wymagania pozafunkcjonalne}
+
+Bezpieczeństwo przesyłu:
+\begin{itemize}
+\item \texttt{poufność}
+\item \texttt{integralność}
+\item \texttt{dostępność}
+\end{itemize}
+Dane odebrane przez serwer muszą zostać sprawdzone pod kątem potencjalnego ataku - \texttt{SQL-injection} oraz \texttt{Cross Scripting}
+\newline
+\newline
+Zapytania do serwera powinny być wykonywane w osobnych wątkach, by skrócić czas
+wykonywania operacji i oczekiwania na odpowiedź.
+
+\subsection{Rozwiązania problemów}
+
+\texttt{Poufność} i \texttt{integralność} przesyłu danych jest zapewniona dzięki szyfrowaniu połączeń za pomocą klucza RSA. Zapobieganie atakom m. in. typu \texttt{Cross Scripting}, \texttt{SQL-injection} oraz \texttt{DDoS} jest zapewnione dzięki dokładnemu sprawdzaniu wprowadzonych oraz przesyłanych danych, pozwolenie używania tylko określonych znaków oraz wprowadzenie ograniczeń na czas i liczbę wykonywanych zapytań.
+\newline
+Dostępność jest zapewniona dzięki wielu serwerom, działającym niezależnie, więc w wyniku awarii jednego systemu, można udać się do innego.
+
+\section{Opis używanych protokołów}
+
+\subsection{Protokół client-server}
+
+Tekstowy protokół warstwy aplikacyjnej służący do przesyłania klientowi wyznaczonej przez serwer trasy podróż za pomocą bezpiecznego połączenia SSL.
+
+\subsubsection{Zapytanie}
+Zapytanie do serwera składa się z czterech linii:
+
+
+\begin{itemize}
+
+\item \texttt{FROM\_CITY}\\
+- miasto początkowe. Dozwolone znaki to: litery alfabetu angielskiego, pauza oraz spacja.
+
+\item \texttt{TO\_CITY}\\
+- miasto docelowe. Dozwolone znaki to: litery alfabetu angielskiego, pauza oraz spacja.
+
+\item \texttt{DATE}\\
+- data początku podróży. Format: YYYYMMDD. Dozwolone tylko cyfry.
+
+\item \texttt{TIME}\\
+- godzina początku podróży. Format: YYYYMMDD. Dozwolone tylko cyfry.
+
+\end{itemize}
+
+\subsubsection{Odpowiedź}
+
+Odpowiedź serwera składa się z różnej liczby linii w zależności od wyniku zapytania.
+\newline
+Pierwszą linią jest zawsze kod wyniku zapytania. 
+Możliwe kody to:
+\begin{itemize}
+\item \texttt{BADFORMAT} - zły format jakiejś linii w zapytaniu
+\item \texttt{BADQUERY} - niepoprawne zapytanie
+\item \texttt{IOERROR} - problem dostępem do bazy, pliku itp.
+\item \texttt{NOCONNECTION} - brak połączenia między podanymi miastami
+\item \texttt{NOTFOUND} - trasa nie została znaleziona
+\item \texttt{NOTEXISTS} - podane miasto nie istnieje w bazie
+\item \texttt{OK} - zapytanie poprawne i znaleziono trasę
+\item \texttt{TIMEOUT} - przekroczony czas zapytania
+\item \texttt{UNKNOWNERROR} - nieznany błąd
+\end{itemize}
+
+Jeżeli kodem wyniku jest \texttt{OK} to kolejna linia zawiera liczbę oznaczającą liczbę odcinków podróży. Następnie w kolejnych liniach znajduje się opis tych odcinków. Opis jednego odcinka składa się z następujących linii:
+\begin{itemize}
+\item \texttt{CARRIER\_NAME}\\
+- nazwa przewoźnika dla danego odcinka trasy
+\item \texttt{FROM\_CITY}\\
+- miasto początkowe odcinka
+\item \texttt{TO\_CITY}\\
+- miasto docelowe odcinka
+\item \texttt{START\_DATE}\\
+- data odjazdu w formacie YYYYMMDD
+\item \texttt{START\_TIME}\\
+- godzina odjazdu w formacie HHMM
+\item \texttt{STOP\_DATE}\\
+- data przyjazdu w formacie YYYYMMDD
+\item \texttt{STOP\_TIME}\\
+- godzina przyjazdu w formacie HHMM
+\end{itemize}
+
+\subsubsection{Implementacja w projekcie}
+Protokół jest zaimplementowany w podprojektach \textbf{client} i \textbf{server}. Po stronie klienta, klasą implementującą protokół jest klasa \textit{QueryProtocol}, a po stronie serwera \textit{QueryHandler}. Do komunikacji wykorzystano java'owy \textit{SSLSocket}.
+
+
+
+\subsection{Protokół client-server}
+
+Tekstowy protokół warstwy aplikacyjnej służący do przesyłania serwerowi odpowiedzi na zapytania o rozkład jazdy za pomocą bezpiecznego połączenia SSL.
+
+\subsubsection{Zapytanie}
+Zapytanie do aplikacji przewoźnika składa się z czterech linii:
+
+\begin{itemize}
+
+\item \texttt{FROM\_CITY}\\
+- miasto początkowe. Dozwolone znaki to: litery alfabetu angielskiego, pauza oraz spacja.
+
+\item \texttt{TO\_CITY}\\
+- miasto docelowe. Dozwolone znaki to: litery alfabetu angielskiego, pauza oraz spacja.
+
+\item \texttt{DATE}\\
+- data początku podróży. Format: YYYYMMDD. Dozwolone tylko cyfry.
+
+\item \texttt{TIME}\\
+- godzina początku podróży. Format: YYYYMMDD. Dozwolone tylko cyfry.
+
+\end{itemize}
+
+\subsubsection{Odpowiedź}
+
+Odpowiedź serwera składa się z następujących linii:
+\begin{itemize}
+\item \texttt{RESPONSE\_CODE}\\
+- pierwszą linią jest zawsze kod wyniku zapytania. 
+Możliwe kody to:
+\begin{itemize}
+\item \texttt{BADFORMAT} - zły format jakiejś linii w zapytaniu
+\item \texttt{BADQUERY} - niepoprawne zapytanie
+\item \texttt{IOERROR} - problem dostępem do bazy, pliku itp.
+\item \texttt{NOCONNECTION} - brak połączenia między podanymi miastami
+\item \texttt{NOTFOUND} - trasa nie została znaleziona
+\item \texttt{NOTEXISTS} - podane miasto nie istnieje w bazie
+\item \texttt{OK} - zapytanie poprawne i znaleziono trasę
+\item \texttt{TIMEOUT} - przekroczony czas zapytania
+\item \texttt{UNKNOWNERROR} - nieznany błąd
+\end{itemize}
+Jeżeli kod wyniku jest różny od \texttt{OK} to odpowiedź nie zawiera kolejnych linii.
+\item \texttt{CARRIER\_NAME}\\
+- nazwa przewoźnika, który wysyła odpowiedź
+\item \texttt{FROM\_CITY}\\
+- miasto początkowe
+\item \texttt{TO\_CITY}\\
+- miasto docelowe
+\item \texttt{START\_DATE}\\
+- data odjazdu w formacie YYYYMMDD
+\item \texttt{START\_TIME}\\
+- godzina odjazdu w formacie HHMM
+\item \texttt{STOP\_DATE}\\
+- data przyjazdu w formacie YYYYMMDD
+\item \texttt{STOP\_TIME}\\
+- godzina przyjazdu w formacie HHMM
+\end{itemize}
+
+\subsubsection{Implementacja w projekcie}
+Protokół jest zaimplementowany w podprojektach \textbf{server} i \textbf{carrier}. Po stronie serwera, klasą implementującą protokół jest klasa \textit{QueryProtocol}, a po stronie przewoźnika \textit{QueryHandler}. Do komunikacji wykorzystano java'owy \textit{SSLSocket}.
+
+\section{Komunikacja Klient-Serwer}
+
+\subsection{Nawiązywanie i wznawianie połączenia}
+
+\subsubsection{Założenia}
+Mamy wiele serwerów, który realizują zapytania wielu klientów. Każdy klient ma przydzielony jeden serwer, co oznacza, że każdy serwer ma przydzieloną pewną pulę klientów, których obsługuje. Klient zawsze powinien mieć możliwość wykonywania podstawowych operacji oferowanych przez system.
+Wymogiem stawianym klientowi przed pierwszym skorzystaniem z naszej aplikacji jest konieczność konfiguracji adresu serwera i portu na którym nasłuchuje.
+
+\subsubsection{Zagrożenia}
+Aktualnie, dane wprowadzane przez klienta nie są na tyle poufne, żeby potrzebna była autoryzacja za pomocą loginu i hasła, przez co nie ma zagrożeń związanych z nieautoryzowanym dostępem do danych. Dodatkowo, połączenie między klientem a serwerem jest szyfrowane, więc próba wydobycia danych podczas ich przesyłania jest nie dość, że bardzo utrudniona to jeszcze nie współmierna do zysków.
+
+\subsubsection{Analiza}
+Klient jest w stanie korzystać z aplikacji dopóki funkcjonuje jakikolwiek ze znanych mu serwerów - prawdopodobieństwo,
+że wszystkie jednocześnie przestaną funkcjonować, jest niewielkie.
+
+
+
+\section{Komunikacja Serwer - Baza danych oraz Przewoźnik - Baza danych}
+
+\subsection{Komunikacja}
+
+\subsubsection{Założenia}
+Baza danych powinna być połączona z serwerem bezpiecznym połączeniem. 
+
+\subsubsection{Zagrożenia}
+Atak \texttt{Man in the middle}, próba nawiązania zewnętrznego połączenia. Istotnym zagrożeniem
+może się także okazać atak na serwer realizowany za pomocą jednoczesnego wysyłania zapytań
+od wielu klientów.
+
+\subsubsection{Rozwiązanie}
+Baza jest połączona z serwerem połączeniem bezpośrednim, lokalnym. Porty powiązane z bazą są zablokowane dla zewnętrzynych połączeń. Wszystkie próby nawiązania połączenia z zewnątrz oraz utraty połączenia z serwerem są logowane i analizowane.
+W momencie, kiedy zostaje przekroczony limit aktywnych połączeń serwer-klient, serwer przestaje przyjmować nowe.
+
+\subsubsection{Analiza}
+Baza jest zabezpieczona od ataków zewnętrznych. Pozostaje kwestia ataków wewnętrznych.
+
+\subsection{Zapytania SQL}
+
+\subsubsection{Założenia}
+Baza danych zagrożona jest też od wewnątrz - potrzebujemy zabezpieczyć ją przed atakami wewnętrzymi.
+
+\subsubsection{Zagrożenia}
+Atak \texttt{SQLInjection} - zapytania SQL tworzone są na podstawie danych przesłanych przez klientów - mogą być spreparowane tak, by zaatakować bazę od środka.
+
+\subsubsection{Rozwiązanie}
+Dane od klienta są szczegółowo analizowane pod kątem niedozwolonych znaków.
+
+\subsubsection{Analiza}
+Atak \texttt{SQLInjection} jest dobrze znany i bazy danych implementują bardzo skuteczne metody do zapobiegania im.
+Wystarczy odpowiednio korzystać z tych dostarczonych i przetestowanych funkcjonalności.
+
+\section{Komunikacja Serwer - Przewoźnik}
+
+\subsection{Analiza}
+Dane, które przewoźnik przesyła do serwera nie są aktualnie poufne (bowiem rozkład jazdy zazwyczaj jest znany każdemu np. poprzez stronę internetową).
+System musi być integralny, fałszywy przewoźnik nie powinien móc "podpiąć się" do sieci, nikt nie powinien móc rozsyłać fałszywych danych.
+W takim razie, każdy serwer zna klucze publiczne wszystkich swoich przewoźników i na odwrót.
+Każdy wysyłany komunikat jest podpisywany przez nadawcę, a każdy odbierany jest weryfikowany.
+
+\section{Klient - Aplikacja}
+
+\subsection{Implementacja}
+
+Aplikacja jest napisana w Javie 1.8 i budowana oraz konfigurowana przez skrypty napisane w Bashu. Aplikacja kliencka jest aplikacją z interfejsem tekstowym. Do swojego działania wymaga podprojektu \emph{commons}, w którym znajdują się klasy wspólne dla całego projektu.
+
+\subsection{Klasy}
+Aplikacja kliencka składa się z następujących klas (wraz z krótkim opisem funkcjonalności):
+\begin{itemize}
+\item \texttt{Application} - klasa główna aplikacji, pobieranie danych od użytkownika
+\item \texttt{Config} - klasa opakowująca plik konfiguracyjny
+\item \texttt{QueryProtocol} - klasa służąca do komunikacji z serwerem, implementacja protokołu \textit{client-server}
+\item \texttt{RouteUtils} - klasa będąca mostem pomiędzy, aplikacją a protokołem
+\item \texttt{Utils} - funkcje wspólne dla całej aplikacji
+\end{itemize}
+
+\subsection{Działanie}
+Opis działania jest bardzo prosty. Aplikacja najpierw pobiera dane od użytkownika, sprawdza czy mają poprawny format i ewentualnie ponawia zapytanie o dany fragment wyświetlając stosowny komunikat. Następnie przekazuje zapytanie do implementacji protokołu \textit{client-server}, w którym jest wysyłane do serwera. Po otrzymaniu odpowiedzi wyświetla czy trasa została wyznaczona i jeżeli tak, to wyświetla ją czytelnej dla użytkownika formie.
+
+\subsection{Dodawanie własnego klienta}
+Jest możliwość dodania własnej aplikacji klienta. Jedynym wymogiem jest zaimplementowanie protokołu \textit{client-server} opisanego w niniejszej dokumentacji.
+
+
+
+\section{Serwer - Aplikacja}
+
+\subsection{Implementacja}
+
+Aplikacja jest napisana w Javie 1.8 i budowana oraz konfigurowana przez skrypty napisane w Bashu. Do swojego działania wymaga podobnie jak aplikacja kliencka podprojektu \emph{commons}, w którym znajdują się klasy wspólne dla całego projektu.
+
+\subsection{Klasy}
+Aplikacja serwerowa składa się z następujących klas (wraz z krótkim opisem funkcjonalności):
+\begin{itemize}
+\item \texttt{QueryProtocol} - klasa służąca do komunikacji z przewoźnikiem, implementacja protokołu \textit{server-carrier}
+\item \texttt{Config} - klasa opakowująca plik konfiguracyjny
+\item \texttt{ApplicationServer} - kod głównego wątku serwera
+\item \texttt{QueryHandler} - klasa służąca do komunikacji z klientem, obsługa zapytania, implementacja protokołu \textit{client-server}
+\item \texttt{CarriersAccessor} - połączenie aplikacji i "bazy danych" zawierającej spis przewoźników
+\item \texttt{DistancesAccessor} - połączenie aplikacji i "bazy danych" zawierającej odległości między miastami
+\item \texttt{PathCalculator} - wyliczanie najkrótszej ścieżki między dwoma miastami, algorytm Dijkstry
+\item \texttt{RouteSearch} - wyszukiwanie najszybszego połączenia na danej trasie
+\item \texttt{Application} - klasa główna aplikacji, start serwera
+\end{itemize}
+
+\subsection{Działanie}
+Na początku uruchamiany jest nowy wątek z kodem serwera. Tworzony jest SSL Server Socket i ustawiony w tryb nasłuchiwania. W momencie zaakceptowania klienta, do ExecutorService wysyłane jest zadanie obsłużenia klienta. Obsługa znajduje się w klasie \texttt{QueryHandler}. Tam jest pobierane zapytanie od klienta i walidowane pod względem znaków, formatu, poprawności itp. Następnie wyznaczana jest najkrótsza ścieżka między miastami: początkowym i docelowym, a potem na znalezionej ścieżce jest wykonywane wyszukiwanie najlepszego pod względem czasu dotarcia połączenia. Algorytm sprawdza czy jest możliwe bezpośrednie połączenie między miastem początkowym i kolejno: ostatnim, przedostatnim itd. Jeżeli takie znajdzie resztę trasy wyznacza rekurencyjnie. W trakcie wykonywania algorytmu następują odwołania do "baz danych" (w cudzysłowie, bo aktualnie to są zwykłe pliki) oraz zapytania do przewoźników o połączenia między miastami wraz z datą i godziną. Jeżeli w trakcie obsługi zapytania klienta pójdzie nie tak, wysyłany jest stosowny kod odpowiedzi i obsługa klienta kończy działanie. Jeżeli natomiast połączenie zostanie pomyślnie znalezione, zostaje ono wysłane do klienta zgodnie z protokołem \textit{client-server}.
+
+\subsection{Dodawanie własnego serwera}
+Jest możliwość dodania własnej aplikacji serwera. Jedynym wymogiem jest zaimplementowanie protokołu \textit{client-server} opisanego w niniejszej dokumentacji. Jeżeli dodatkowo serwer chce się łączyć z przewoźnikami, musi on implementować także protokół \textit{server-carrier} również opisany w dokumentacji.
+
+\section{Przewoźnik - Aplikacja}
+
+\subsection{Implementacja}
+
+Aplikacja jest napisana w Javie 1.8 i budowana oraz konfigurowana przez skrypty napisane w Bashu. Do swojego działania potrzebuje zainstalowaną aplikację SQLite3 oraz podobnie jak poprzednie aplikacje, wymaga podprojektu \emph{commons}, w którym znajdują się klasy wspólne dla całego projektu.
+
+\subsection{Klasy}
+Aplikacja przewoźnika składa się z następujących klas (wraz z krótkim opisem funkcjonalności):
+\begin{itemize}
+
+\item \texttt{Config} - klasa opakowująca plik konfiguracyjny
+\item \texttt{QueryExecutor} - wykonuje zapytanie do bazy danych zawierającej rozkład jazdy
+\item \texttt{TimetableAccessor} - połączenie aplikacji i "bazy danych" zawierającej rozkład jazdy przewoźnika
+\item \texttt{QueryHandler} - klasa służąca do komunikacji z serwerem, obsługa zapytań serwera, serwerowa implementacja protokołu \textit{server-carrier}
+\item \texttt{ApplicationServer} - kod głównego wątku serwera
+\item \texttt{Application} - klasa główna aplikacji, start serwera
+\end{itemize}
+
+\subsection{Działanie}
+Opis działania tej aplikacji jest bardzo prosty. Jest to typowy przykład serwera wykonującego zapytania. Na początku uruchamiany jest nowy wątek z kodem serwera. Tworzony jest SSL Server Socket i ustawiony w tryb nasłuchiwania. W momencie zaakceptowania klienta (czyli de facto naszego serwera z projektu), do ExecutorService wysyłane jest zadanie obsłużenia go. Obsługa znajduje się w klasie \texttt{QueryHandler}. Tam jest pobierane zapytanie od klienta (naszego serwera) i walidowane pod względem znaków, formatu, poprawności itp. Następnie wykonywane jest zapytanie do bazy danych. Jeżeli baza danych odpowie niepustym rekordem, jest on wysyłany do klienta w formacie opisanym w protokole \textit{server-carrier}. W przeciwnym wypadku wysyłany jest stosowny \texttt{ResoinseCode}.
+
+\subsection{Dodawanie własnego przewoźnika}
+Jest możliwość dodania własnej aplikacji przewoźnika. Jedynym wymogiem jest zaimplementowanie protokołu \textit{server-carrier} opisanego w niniejszej dokumentacji.
+
+\section{Commons}
+
+\subsection{Implementacja}
+
+W podprojekcie \textit{commons} zawarte są klasy wspólne dla wszystkich podprojektów.
+
+\subsection{Klasy}
+Podprojekt \textit{commons} składa się z następujących klas (wraz z krótkim opisem funkcjonalności):
+\begin{itemize}
+
+\item \texttt{Carrier} - klasa opisująca przewoźnika
+\item \texttt{Query} - klasa opisująca zapytanie klienta, wzorzec builder
+\item \texttt{Route} - klasa opisująca całą trasę
+\item \texttt{Segment} - klasa opisująca pojedynczy odcinek trasy, wzorzec builder
+\item \texttt{DatabaseAccessor} - interface dostępu do baz danych
+\item \texttt{DateTimeUtils} - formatery daty i czasu
+\item \texttt{Pair} - klasa do przechowywania par, immutable
+\item \texttt{ResponseCodes} - enum z kodami odpowiedzi serwerów
+\item \texttt{ServerUtils} - funkcje wspólne dla serwerów
+\item \texttt{Validator} - klasa z różnymi walidatorami
+\end{itemize}
+
+
+\end{document}
+

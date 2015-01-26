@@ -1,0 +1,111 @@
+#!/bin/bash
+#===============================================================
+#
+# [ author: Krzysztof Baranski ]
+#
+#       RANDOM TIMETABLE
+#
+#===============================================================
+
+cities="Bialystok
+Bielsko-Biala
+Bydgoszcz
+Bytom
+Chelm
+Elblag
+Gdansk
+Gliwice
+Gorzow Wielkopolski
+Kalisz
+Katowice
+Kielce
+Koszalin
+Krakow
+Legnica
+Lublin
+Lodz
+Nowy Sacz
+Olsztyn
+Opole
+Pila
+Poznan
+Rzeszow
+Slupsk
+Suwalki
+Szczecin
+Swinoujscie
+Tarnow
+Torun
+Walbrzych
+Warszawa
+Wloclawek
+Wroclaw
+Zakopane
+Zamosc
+Zielona Gora
+"
+
+setuplock='.setuplock'
+
+#--------------------------------------------------------------| get number of records
+echo -n "Number of records: "
+read records
+
+#--------------------------------------------------------------| rundom number function
+random_number() {
+	number=$[ ( $RANDOM % $1 )  + 1 ]
+	echo $number
+}
+
+#--------------------------------------------------------------| rundom city function
+random_city() {
+	number=$( random_number 36 )
+	echo "$cities" | sed -n "${number}p"
+}
+
+#--------------------------------------------------------------| rundom time function
+random_time() {
+	date -d "$((RANDOM%24)):$((RANDOM%60))" '+%H:%M'
+}
+
+#--------------------------------------------------------------| create tmp file
+tmp_file='/tmp/.timetable$$'
+touch $tmp_file
+
+#--------------------------------------------------------------| generate records
+for(( i=0; i<$records; ++i ))
+do
+	course=$( random_number 10 )
+	city1=$( random_city )
+	city2=$( random_city )
+	while [ "$city1" == "$city2" ]
+	do
+		city2=$( random_city )
+	done
+	departure=$( random_time )
+	journey_time=$( random_number 150 )
+	arrival=$( date -d "$departure today + $journey_time minutes" +'%H:%M')
+
+	echo "[$departure] $city1 -> $city2 [$arrival]"
+	echo "insert into timetable values( $course, '$city1', '$city2', '$departure', '$arrival' );" >> $tmp_file
+done
+
+#--------------------------------------------------------------| check if configured
+if [ ! -f $setuplock ]
+then
+	cat $tmp_file >> database/create.sql
+else
+	dbname=$( sed -n -e '/database_name/s/^.*=\(.*\)$/\1/p' config.properties )
+	echo "Database name: $dbname"
+	sqlite3 database/$dbname < $tmp_file
+	if [ "$?" == "0" ]
+	then
+		echo "OK!"
+	else
+		echo "Error!"
+		exit 1
+	fi
+fi
+
+#--------------------------------------------------------------| remove tmp file
+rm -f $tmp_file

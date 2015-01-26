@@ -32,7 +32,7 @@
             <appender-ref ref="error-log" level="error"/>
             <appender-ref ref="console-log" level="debug"/>
         </Logger>
-        <Root level="debug" additivity="false">
+        <Root level="info" additivity="false">
             <AppenderRef ref="console-log" level="off"/>
             <AppenderRef ref="trace-log"/>
             <AppenderRef ref="error-log"/>

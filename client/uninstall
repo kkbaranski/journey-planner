@@ -31,6 +31,11 @@ else
 	echo "Error!"
 fi
 
+#--------------------------------------------------------------| reset config file
+echo "Reseting config file..."
+sed -i config.properties -e '/server_address/cserver_address='
+sed -i config.properties -e '/server_port/cserver_port='
+
 #--------------------------------------------------------------| remove jars
 echo "Removing jars..."
 rm -vf libs/$commons_jar

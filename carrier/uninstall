@@ -33,10 +33,11 @@ else
 fi
 
 #--------------------------------------------------------------| remove database
-if [ -f $db ]
+dbname=$( sed -n -e '/database_name/s/^.*=\(.*\)$/\1/p' config.properties )
+echo "Database name: $dbname"
+if [ "$dbname" != "" ] && [ -f database/$dbname ]
 then
 	echo "Removing database..."
-	dbname=$( cat $db )
 	rm -f database/$dbname
 	if [ $? -eq 0 ]
 	then
@@ -46,19 +47,21 @@ then
 	fi
 fi
 
-#--------------------------------------------------------------| remove database name
-if [ -f $db ]
+#--------------------------------------------------------------| remove timetable
+echo "Removing timetable..."
+sed -i database/create.sql -e '/^insert/d'
+if [ $? -eq 0 ]
 then
-	echo "Removing database name..."
-	rm -f $db
-	if [ $? -eq 0 ]
-	then
-		echo "OK!"
-	else
-		echo "Error!"
-	fi
+	echo "OK!"
+else
+	echo "Error!"
 fi
 
+#--------------------------------------------------------------| reset config file
+echo "Reseting config file..."
+sed -i config.properties -e '/carrier_name/ccarrier_name='
+sed -i config.properties -e '/server_port/cserver_port='
+sed -i config.properties -e '/database_name/cdatabase_name='
 
 #--------------------------------------------------------------| remove jars
 echo "Removing jars..."

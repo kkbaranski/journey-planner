@@ -12,7 +12,7 @@ setuplock='.setuplock'
 project_name='carrier'
 build='.build'
 source='source'
-main_class='Application'
+main_class='carrier/Application'
 commons_dir='../commons'
 commons_jar='commons.jar'
 project_jar=$project_name.jar
@@ -58,17 +58,8 @@ then
     fi
 fi
 
-#--------------------------------------------------------------| get dbname
-echo
-if [ ! -f $db ]
-then
-	echo -n "Database name: "
-	read dbname
-	echo "$dbname" > $db
-	chmod -w $db
-else
-	dbname=$( cat $db )
-fi
-
 #--------------------------------------------------------------| run application
-$_java -cp "$project_jar:libs/*" -Djavax.net.ssl.keyStore=client_server_key -Djavax.net.ssl.keyStorePassword=123456 $main_class $dbname
+options=''
+options=$options" -Djavax.net.ssl.keyStore=server_carrier_key"
+options=$options" -Djavax.net.ssl.keyStorePassword=123456"
+$_java -cp "$project_jar:libs/*" $options $main_class $dbname

@@ -11,7 +11,7 @@ setuplock='.setuplock'
 project_name='server'
 build='.build'
 source='source'
-main_class='Application'
+main_class='server/Application'
 commons_dir='../commons'
 commons_jar='commons.jar'
 project_jar=$project_name.jar
@@ -58,4 +58,9 @@ then
 fi
 
 #--------------------------------------------------------------| run application
-$_java -cp "$project_jar:libs/*" -Djavax.net.ssl.keyStore=client_server_key -Djavax.net.ssl.keyStorePassword=123456  $main_class
+options=''
+options=$options" -Djavax.net.ssl.keyStore=client_server_key"
+options=$options" -Djavax.net.ssl.keyStorePassword=123456"
+options=$options" -Djavax.net.ssl.trustStore=server_carrier_key"
+options=$options" -Djavax.net.ssl.trustStorePassword=123456"
+$_java -cp "$project_jar:libs/*" $options $main_class

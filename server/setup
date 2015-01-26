@@ -20,6 +20,12 @@ then
 	exit 1
 fi
 
+#--------------------------------------------------------------| set server port
+echo -n "Set server port: "
+read server_port
+sed -i config.properties -e '/server_port/cserver_port='"$server_port"
+
+#--------------------------------------------------------------| setuplock
 touch $setuplock
 chmod 0 $setuplock
 

@@ -1,3 +1,4 @@
+import commons.journey.Query;
 import org.junit.Test;
 
 import java.time.LocalDate;

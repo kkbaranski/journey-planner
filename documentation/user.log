@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.22)  23 JAN 2015 12:32
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.22)  26 JAN 2015 23:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -385,31 +385,56 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 59.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [2] [3] (./user.aux) ) 
+) [2] [3]
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
+
+ []
+
+[4]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 162.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 162.
+ [5] [6]
+(./user.aux) ) 
 Here is how much of TeX's memory you used:
- 2026 strings out of 495024
- 26248 string characters out of 3181154
- 78138 words of memory out of 3000000
- 5187 multiletter control sequences out of 15000+200000
+ 2043 strings out of 495024
+ 26539 string characters out of 3181154
+ 79138 words of memory out of 3000000
+ 5201 multiletter control sequences out of 15000+200000
  14193 words of font info for 29 fonts, out of 3000000 for 9000
  34 hyphenation exceptions out of 8191
- 37i,4n,23p,261b,266s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/e
-c/ecti1000.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1
-000.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600
-pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </h
-ome/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/krz
-ysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/krzysztof/
-.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/krzysztof/.texmf-
-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/krzysztof/.texmf-var/fon
-ts/pk/ljfour/jknappen/ec/ecti1200.600pk> </home/krzysztof/.texmf-var/fonts/pk/l
-jfour/jknappen/ec/ecbx2074.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/j
-knappen/ec/eccc1440.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen
-/ec/eccc1728.600pk>
-Output written on user.pdf (4 pages, 91046 bytes).
+ 37i,5n,23p,505b,266s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000
+.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk>
+ </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home
+/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/krzysz
+tof/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/krzysztof/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/krzysztof/.texmf-var
+/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/krzysztof/.texmf-var/fonts/
+pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfo
+ur/jknappen/ec/ecti1200.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jkna
+ppen/ec/ecbx2074.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec
+/eccc1440.600pk> </home/krzysztof/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc17
+28.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb>
+Output written on user.pdf (7 pages, 124023 bytes).
 PDF statistics:
- 330 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 416 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

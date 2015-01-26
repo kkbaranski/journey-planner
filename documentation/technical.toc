@@ -1,0 +1,59 @@
+\contentsline {section}{\numberline {1}Og\IeC {\'o}lny opis projektu}{2}
+\contentsline {subsection}{\numberline {1.1}Opis projektu}{2}
+\contentsline {subsubsection}{\numberline {1.1.1}Cel}{2}
+\contentsline {subsubsection}{\numberline {1.1.2}Aktualna wersja}{2}
+\contentsline {subsubsection}{\numberline {1.1.3}Planowane rozszerzenia}{2}
+\contentsline {subsection}{\numberline {1.2}Struktura projektu}{2}
+\contentsline {subsubsection}{\numberline {1.2.1}Cel}{2}
+\contentsline {subsubsection}{\numberline {1.2.2}Aktualna wersja}{2}
+\contentsline {subsubsection}{\numberline {1.2.3}Planowane rozszerzenia}{2}
+\contentsline {section}{\numberline {2}Og\IeC {\'o}lna analiza wymaga\IeC {\'n} stawianych aplikacji}{3}
+\contentsline {subsection}{\numberline {2.1}Analiza problem\IeC {\'o}w}{3}
+\contentsline {subsubsection}{\numberline {2.1.1}Wymagania funkcjonalne}{3}
+\contentsline {subsubsection}{\numberline {2.1.2}Wymagania pozafunkcjonalne}{3}
+\contentsline {subsection}{\numberline {2.2}Rozwi\IeC {\k a}zania problem\IeC {\'o}w}{3}
+\contentsline {section}{\numberline {3}Opis u\IeC {\.z}ywanych protoko\IeC {\l }\IeC {\'o}w}{3}
+\contentsline {subsection}{\numberline {3.1}Protok\IeC {\'o}\IeC {\l } client-server}{3}
+\contentsline {subsubsection}{\numberline {3.1.1}Zapytanie}{3}
+\contentsline {subsubsection}{\numberline {3.1.2}Odpowied\IeC {\'z}}{4}
+\contentsline {subsubsection}{\numberline {3.1.3}Implementacja w projekcie}{5}
+\contentsline {subsection}{\numberline {3.2}Protok\IeC {\'o}\IeC {\l } client-server}{5}
+\contentsline {subsubsection}{\numberline {3.2.1}Zapytanie}{5}
+\contentsline {subsubsection}{\numberline {3.2.2}Odpowied\IeC {\'z}}{5}
+\contentsline {subsubsection}{\numberline {3.2.3}Implementacja w projekcie}{6}
+\contentsline {section}{\numberline {4}Komunikacja Klient-Serwer}{6}
+\contentsline {subsection}{\numberline {4.1}Nawi\IeC {\k a}zywanie i wznawianie po\IeC {\l }\IeC {\k a}czenia}{6}
+\contentsline {subsubsection}{\numberline {4.1.1}Za\IeC {\l }o\IeC {\.z}enia}{6}
+\contentsline {subsubsection}{\numberline {4.1.2}Zagro\IeC {\.z}enia}{6}
+\contentsline {subsubsection}{\numberline {4.1.3}Analiza}{6}
+\contentsline {section}{\numberline {5}Komunikacja Serwer - Baza danych oraz Przewo\IeC {\'z}nik - Baza danych}{7}
+\contentsline {subsection}{\numberline {5.1}Komunikacja}{7}
+\contentsline {subsubsection}{\numberline {5.1.1}Za\IeC {\l }o\IeC {\.z}enia}{7}
+\contentsline {subsubsection}{\numberline {5.1.2}Zagro\IeC {\.z}enia}{7}
+\contentsline {subsubsection}{\numberline {5.1.3}Rozwi\IeC {\k a}zanie}{7}
+\contentsline {subsubsection}{\numberline {5.1.4}Analiza}{7}
+\contentsline {subsection}{\numberline {5.2}Zapytania SQL}{7}
+\contentsline {subsubsection}{\numberline {5.2.1}Za\IeC {\l }o\IeC {\.z}enia}{7}
+\contentsline {subsubsection}{\numberline {5.2.2}Zagro\IeC {\.z}enia}{7}
+\contentsline {subsubsection}{\numberline {5.2.3}Rozwi\IeC {\k a}zanie}{7}
+\contentsline {subsubsection}{\numberline {5.2.4}Analiza}{7}
+\contentsline {section}{\numberline {6}Komunikacja Serwer - Przewo\IeC {\'z}nik}{8}
+\contentsline {subsection}{\numberline {6.1}Analiza}{8}
+\contentsline {section}{\numberline {7}Klient - Aplikacja}{8}
+\contentsline {subsection}{\numberline {7.1}Implementacja}{8}
+\contentsline {subsection}{\numberline {7.2}Klasy}{8}
+\contentsline {subsection}{\numberline {7.3}Dzia\IeC {\l }anie}{8}
+\contentsline {subsection}{\numberline {7.4}Dodawanie w\IeC {\l }asnego klienta}{8}
+\contentsline {section}{\numberline {8}Serwer - Aplikacja}{9}
+\contentsline {subsection}{\numberline {8.1}Implementacja}{9}
+\contentsline {subsection}{\numberline {8.2}Klasy}{9}
+\contentsline {subsection}{\numberline {8.3}Dzia\IeC {\l }anie}{9}
+\contentsline {subsection}{\numberline {8.4}Dodawanie w\IeC {\l }asnego serwera}{10}
+\contentsline {section}{\numberline {9}Przewo\IeC {\'z}nik - Aplikacja}{10}
+\contentsline {subsection}{\numberline {9.1}Implementacja}{10}
+\contentsline {subsection}{\numberline {9.2}Klasy}{10}
+\contentsline {subsection}{\numberline {9.3}Dzia\IeC {\l }anie}{10}
+\contentsline {subsection}{\numberline {9.4}Dodawanie w\IeC {\l }asnego przewo\IeC {\'z}nika}{10}
+\contentsline {section}{\numberline {10}Commons}{11}
+\contentsline {subsection}{\numberline {10.1}Implementacja}{11}
+\contentsline {subsection}{\numberline {10.2}Klasy}{11}
